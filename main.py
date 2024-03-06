@@ -10,7 +10,6 @@ class Controleur:
         self.vue.root.mainloop()
 
 
-
     def initialise_partie(self):
         self.modele.creer_troncons()
         self.vue.afficher_troncons()

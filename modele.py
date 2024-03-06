@@ -1,11 +1,19 @@
 from troncon import Troncon
+from time import sleep
 
 
 class Modele:
     def __init__(self, controle):
+
         self.controle = controle
         self.unite_base = 40
         self.troncons = []
+        self.creeps = []
+        self.CREEP_PAR_NIVEAU = 20
+        self.niveau = 0
+        self.COOLDOWN_VAGUE = 5
+        self.argent = 0
+        self.ARGENT_PAR_NIVEAU = 100
 
     def creer_troncons(self):
         ub = self.unite_base
@@ -57,3 +65,18 @@ class Modele:
 
         print(self.troncons)
         pass
+
+    def init_vague(self) -> None:
+        self.niveau += 1
+        self.argent += self.ARGENT_PAR_NIVEAU
+        for creep in range(self.CREEP_PAR_NIVEAU):
+            pass
+            # c = Creep(self)
+            # self.creeps.append(c)
+        self.compte_rebours(self.COOLDOWN_VAGUE)
+
+    def compte_rebours(self, temps_sec: int) -> None:
+        while temps_sec > 0:
+            print(f"Temps: {temps_sec}")
+            sleep(temps_sec)
+            temps_sec -= 1
