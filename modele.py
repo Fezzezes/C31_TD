@@ -84,7 +84,7 @@ class Modele:
             c = Creep(self)
             self.creeps.append(c)
             self.objets_animer.append(c)
-        self.compte_rebours(self.COOLDOWN_VAGUE) # attention, fonction bloquante
+        # self.compte_rebours(self.COOLDOWN_VAGUE) # attention, fonction bloquante
         # self.lancer_vague()
         # animer_jeu() -> c'est lancer_vague qui a cette méthode
 
