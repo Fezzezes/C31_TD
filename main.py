@@ -14,9 +14,8 @@ class Controleur:
     def initialise_partie(self):
         print("initpartie")
         self.modele.creer_troncons()
-        self.modele.creer_creep()
         self.vue.afficher_troncons()
-        self.animer_jeu()
+        self.modele.init_vague()
         pass
 
     def animer_jeu(self):
