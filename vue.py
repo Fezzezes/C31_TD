@@ -15,17 +15,32 @@ class Vue:
         self.creer_frame_aire_jeu()
 
     def creer_frame_aire_jeu(self):
-        frame_aire_jeu = Canvas(self.root, width=self.modele.unite_base * 32,
-                                height=self.modele.unite_base * 19, bg="orange")
+        canvas_aire_jeu = Canvas(self.root, width=self.modele.unite_base * 32,
+                                 height=self.modele.unite_base * 19, bg="orange")
 
         # frame_aire_jeu.bind("<Button>", self.test_tags)
-        frame_aire_jeu.pack()
-        self.dict_interfaces.update({"f_jeu": frame_aire_jeu})
+        canvas_aire_jeu.pack()
+        self.dict_interfaces.update({"c_jeu": canvas_aire_jeu})
 
     def afficher_troncons(self):
-        jeu = self.dict_interfaces["f_jeu"]
+        jeu = self.dict_interfaces["c_jeu"]
         for t in self.modele.troncons:
-            jeu.create_rectangle(t.posX, t.posY, (t.posX + t.largeur), (t.posY + t.hauteur),
-                                                           tags=("troncon",),
-                                                           fill="red")
-        pass
+            jeu.create_rectangle(t.posX, t.posY, (t.posX + t.largeur), (t.posY + t.hauteur), tags=("troncon",),
+                                 fill="red")
+
+    def animer_jeu(self):
+        self.modele.deplacer_creeps()
+        jeu = self.dict_interfaces["jeu"]
+        objets = jeu.find_all()
+        for o in objets:
+            tags = jeu.gettags(o)
+            if "troncon" not in tags:
+                jeu.delete(o)
+
+        for o in self.objets_animer:
+            self.dessine_creep()
+
+    def dessine_creep(self, creep):
+        ub = self.modele.unite_base
+        jeu = self.dict_interfaces["jeu"]
+        jeu.create_oval(creep.posX, creep.posY,self.ub/2, self.ub/2, fill="red", tags=("creep",))

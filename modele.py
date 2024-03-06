@@ -6,6 +6,7 @@ class Modele:
         self.controle = controle
         self.unite_base = 40
         self.troncons = []
+        self.creeps = []
 
     def creer_troncons(self):
         ub = self.unite_base
@@ -56,4 +57,12 @@ class Modele:
                     29 * ub))
 
         print(self.troncons)
+        pass
+
+
+    def deplacer_creeps(self):
+        ## deplace chaque creep
+        for c in self.creeps:
+            c.deplacer()
+
         pass
