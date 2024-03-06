@@ -8,36 +8,52 @@ class Modele:
         self.troncons = []
 
     def creer_troncons(self):
+        ub = self.unite_base
         self.troncons.append(
-            Troncon(self, 5*self.unite_base,0,2*self.unite_base, 16*self.unite_base, 16*self.unite_base))
+            Troncon(self, 5 * ub, 0, 2 * ub, 16 * ub,
+                    15 * ub))
         self.troncons.append(
-            Troncon(self, 5 * self.unite_base, 15*self.unite_base, 2 * self.unite_base, 2 * self.unite_base, 14*self.unite_base))
+            Troncon(self, 5 * ub, 15 * ub, 2 * ub, 2 * ub,
+                    7 * ub))
         self.troncons.append(
-            Troncon(self, 7 * self.unite_base, 15*self.unite_base, 4 * self.unite_base, 2 * self.unite_base, 5 * self.unite_base))
+            Troncon(self, 7 * ub, 15 * ub, 4 * ub, 2 * ub,
+                    11 * ub))
         self.troncons.append(
-            Troncon(self, 11 * self.unite_base, 15*self.unite_base, 2 * self.unite_base, 2 * self.unite_base, 5 * self.unite_base))
+            Troncon(self, 11 * ub, 15 * ub, 2 * ub, 2 * ub,
+                    15 * ub))
         self.troncons.append(
-            Troncon(self, 11 * self.unite_base, 6*self.unite_base, 2 * self.unite_base, 9 * self.unite_base, 5 * self.unite_base))
+            Troncon(self, 11 * ub, 6 * ub, 2 * ub, 9 * ub,
+                    6 * ub))
         self.troncons.append(
-            Troncon(self, 11 * self.unite_base, 4*self.unite_base, 2 * self.unite_base, 2 * self.unite_base, 5 * self.unite_base))
+            Troncon(self, 11 * ub, 4 * ub, 2 * ub, 2 * ub,
+                    13 * ub))
         self.troncons.append(
-            Troncon(self, 13 * self.unite_base, 4*self.unite_base, 15 * self.unite_base, 2 * self.unite_base, 5 * self.unite_base))
+            Troncon(self, 13 * ub, 4 * ub, 15 * ub, 2 * ub,
+                    28 * ub))
         self.troncons.append(
-            Troncon(self, 28 * self.unite_base, 4*self.unite_base, 2 * self.unite_base, 2 * self.unite_base, 5 * self.unite_base))
+            Troncon(self, 28 * ub, 4 * ub, 2 * ub, 2 * ub,
+                    6 * ub))
         self.troncons.append(
-            Troncon(self, 28 * self.unite_base, 6*self.unite_base, 2 * self.unite_base, 3 * self.unite_base, 5 * self.unite_base))
+            Troncon(self, 28 * ub, 6 * ub, 2 * ub, 3 * ub,
+                    9 * ub))
         self.troncons.append(
-            Troncon(self, 28 * self.unite_base, 9 * self.unite_base, 2 * self.unite_base, 2 * self.unite_base, 5 * self.unite_base))
+            Troncon(self, 28 * ub, 9 * ub, 2 * ub, 2 * ub,
+                    28 * ub))
         self.troncons.append(
-            Troncon(self, 21 * self.unite_base, 9 * self.unite_base, 7 * self.unite_base, 2 * self.unite_base, 5 * self.unite_base))
+            Troncon(self, 21 * ub, 9 * ub, 7 * ub, 2 * ub,
+                    21 * ub))
         self.troncons.append(
-            Troncon(self, 19 * self.unite_base, 9 * self.unite_base, 2 * self.unite_base, 2 * self.unite_base, 5 * self.unite_base))
+            Troncon(self, 19 * ub, 9 * ub, 2 * ub, 2 * ub,
+                    11 * ub))
         self.troncons.append(
-            Troncon(self, 19 * self.unite_base, 11 * self.unite_base, 2 * self.unite_base, 4 * self.unite_base,5 * self.unite_base))
+            Troncon(self, 19 * ub, 11 * ub, 2 * ub, 4 * ub,
+                    15 * ub))
         self.troncons.append(
-            Troncon(self, 19 * self.unite_base, 15 * self.unite_base, 2 * self.unite_base, 2* self.unite_base,5 * self.unite_base))
+            Troncon(self, 19 * ub, 15 * ub, 2 * ub, 2 * ub,
+                    21 * ub))
         self.troncons.append(
-            Troncon(self, 21 * self.unite_base, 15 * self.unite_base, 8 * self.unite_base, 2* self.unite_base,5 * self.unite_base))
+            Troncon(self, 21 * ub, 15 * ub, 8 * ub, 2 * ub,
+                    29 * ub))
 
         print(self.troncons)
         pass
