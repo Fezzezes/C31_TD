@@ -28,19 +28,20 @@ class Vue:
             jeu.create_rectangle(t.posX, t.posY, (t.posX + t.largeur), (t.posY + t.hauteur), tags=("troncon",),
                                  fill="red")
 
+
     def animer_jeu(self):
         self.modele.deplacer_creeps()
-        jeu = self.dict_interfaces["jeu"]
+        jeu = self.dict_interfaces["c_jeu"]
         objets = jeu.find_all()
         for o in objets:
             tags = jeu.gettags(o)
             if "troncon" not in tags:
                 jeu.delete(o)
 
-        for o in self.objets_animer:
-            self.dessine_creep()
+        for o in self.modele.objets_animer:
+            self.dessine_creep(o)
 
     def dessine_creep(self, creep):
         ub = self.modele.unite_base
-        jeu = self.dict_interfaces["jeu"]
-        jeu.create_oval(creep.posX, creep.posY,self.ub/2, self.ub/2, fill="red", tags=("creep",))
+        jeu = self.dict_interfaces["c_jeu"]
+        jeu.create_oval(creep.posX, creep.posY,ub/2, ub/2, fill="red", tags=("creep",))

@@ -1,4 +1,6 @@
+from creep import Creep
 from troncon import Troncon
+
 
 
 class Modele:
@@ -7,6 +9,14 @@ class Modele:
         self.unite_base = 40
         self.troncons = []
         self.creeps = []
+        self.objets_animer = []
+
+    def creer_creep(self):
+        for i in range(20):
+            self.creeps.append(Creep(self))
+            self.objets_animer.append(self.creeps[i])
+
+        print(self.creeps[0])
 
     def creer_troncons(self):
         ub = self.unite_base

@@ -9,11 +9,14 @@ class Controleur:
         self.vue = Vue(self, self.modele)
         self.initialise_partie()
         self.vue.root.mainloop()
-        self.objets_animer = []
+
 
     def initialise_partie(self):
+        print("initpartie")
         self.modele.creer_troncons()
+        self.modele.creer_creep()
         self.vue.afficher_troncons()
+        self.animer_jeu()
         pass
 
     def animer_jeu(self):
