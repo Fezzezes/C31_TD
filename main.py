@@ -16,7 +16,7 @@ class Controleur:
         self.modele.creer_troncons()
         self.modele.creer_creep()
         self.vue.afficher_troncons()
-        self.animer_jeu()
+        # self.animer_jeu()
         pass
 
     def animer_jeu(self):
