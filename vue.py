@@ -44,4 +44,4 @@ class Vue:
     def dessine_creep(self, creep):
         ub = self.modele.unite_base
         jeu = self.dict_interfaces["c_jeu"]
-        jeu.create_oval(creep.posX, creep.posY,ub/2, ub/2, fill="red", tags=("creep",))
+        jeu.create_oval(creep.posX, creep.posY,creep.posX+ub/2, creep.posY+ub/2, fill="red", tags=("creep",))
