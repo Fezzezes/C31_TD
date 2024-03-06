@@ -70,6 +70,8 @@ class Modele:
         pass
 
 
+
+
     def deplacer_creeps(self):
         ## deplace chaque creep
         for c in self.creeps:
