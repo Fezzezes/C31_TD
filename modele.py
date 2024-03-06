@@ -12,13 +12,6 @@ class Modele:
         self.troncons = []
         self.creeps = []
         self.objets_animer = []
-
-    def creer_creep(self):
-        for i in range(20):
-            self.creeps.append(Creep(self))
-            self.objets_animer.append(self.creeps[i])
-
-        print(self.creeps[0])
         self.CREEP_PAR_NIVEAU = 20
         self.niveau = 0
         self.COOLDOWN_VAGUE = 5
@@ -88,10 +81,12 @@ class Modele:
         self.niveau += 1
         self.argent += self.ARGENT_PAR_NIVEAU
         for creep in range(self.CREEP_PAR_NIVEAU):
-            pass
-            # c = Creep(self)
-            # self.creeps.append(c)
-        self.compte_rebours(self.COOLDOWN_VAGUE)
+            c = Creep(self)
+            self.creeps.append(c)
+            self.objets_animer.append(c)
+        self.compte_rebours(self.COOLDOWN_VAGUE) # attention, fonction bloquante
+        # self.lancer_vague()
+        # animer_jeu() -> c'est lancer_vague qui a cette méthode
 
     def compte_rebours(self, temps_sec: int) -> None:
         while temps_sec > 0:
