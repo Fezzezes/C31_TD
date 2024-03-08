@@ -3,7 +3,6 @@ from troncon import Troncon
 from time import sleep
 
 
-
 class Modele:
     def __init__(self, controle):
 
@@ -19,58 +18,38 @@ class Modele:
         self.ARGENT_PAR_NIVEAU = 100
 
     def creer_troncons(self):
-        ub = self.unite_base  #largeur,h
+        ub = self.unite_base  # x, y, largeur, hauteur, maxX,minX,maxY,minY):
         self.troncons.append(
-            Troncon(self, 5 * ub, 0, 2 * ub, 16 * ub,
-                    "down"))
-        # self.troncons.append(
-        #     Troncon(self, 5 * ub, 15 * ub, 2 * ub, 2 * ub,
-        #              "right"))
-        self.troncons.append(
-            Troncon(self, 5 * ub, 15 * ub, 8 * ub, 2 * ub,
-                     "right"))
-        self.troncons.append(
-            Troncon(self, 11 * ub, 4 * ub, 2 * ub, 13 * ub,
-                     "up"))
-        # self.troncons.append(
-        #     Troncon(self, 11 * ub, 6 * ub, 2 * ub, 9 * ub,
-        #             "up"))
-        self.troncons.append(
-            Troncon(self, 11 * ub, 4 * ub, 17 * ub, 2 * ub,
-                    "right"))
-        # self.troncons.append(
-        #     Troncon(self, 13 * ub, 4 * ub, 15 * ub, 2 * ub,
-        #             "right"))
-        self.troncons.append(
-            Troncon(self, 28 * ub, 4 * ub, 2 * ub, 7 * ub,
-                    "down"))
-        # self.troncons.append(
-        #     Troncon(self, 28 * ub, 6 * ub, 2 * ub, 3 * ub,
-        #             "down"))
-        self.troncons.append(
-            Troncon(self, 19 * ub, 9 * ub, 11 * ub, 2 * ub,
-                    "left"))
-        # self.troncons.append(
-        #     Troncon(self, 21 * ub, 9 * ub, 7 * ub, 2 * ub,
-        #            "left"))
-        self.troncons.append(
-            Troncon(self, 19 * ub, 9 * ub, 2 * ub, 8 * ub,
-                  "down"))
-        # self.troncons.append(
-        #     Troncon(self, 19 * ub, 11 * ub, 2 * ub, 4 * ub,
-        #             "down"))
-        self.troncons.append(
-            Troncon(self, 19 * ub, 15 * ub, 10 * ub, 2 * ub,
-                    "right"))
-        # self.troncons.append(
-        #     Troncon(self, 21 * ub, 15 * ub, 8 * ub, 2 * ub,
-        #             "right"))
+            Troncon(self, 5 * ub, 0, 2 * ub, 16 * ub, 7 * ub, 5 * ub, 18 * ub, 18 * ub))
 
+        # self.troncons.append(
+        #     Troncon(self, 5 * ub, 15 * ub, 8 * ub, 2 * ub,
+        #              "right"))
+        # self.troncons.append(
+        #     Troncon(self, 11 * ub, 4 * ub, 2 * ub, 13 * ub,
+        #              "up"))
+        #
+        # self.troncons.append(
+        #     Troncon(self, 11 * ub, 4 * ub, 17 * ub, 2 * ub,
+        #             "right"))
+        #
+        # self.troncons.append(
+        #     Troncon(self, 28 * ub, 4 * ub, 2 * ub, 7 * ub,
+        #             "down"))
+        #
+        # self.troncons.append(
+        #     Troncon(self, 19 * ub, 9 * ub, 11 * ub, 2 * ub,
+        #             "left"))
+        #
+        # self.troncons.append(
+        #     Troncon(self, 19 * ub, 9 * ub, 2 * ub, 8 * ub,
+        #           "down"))
+        #
+        # self.troncons.append(
+        #     Troncon(self, 19 * ub, 15 * ub, 10 * ub, 2 * ub,
+        #             "right"))
         print(self.troncons)
         pass
-
-
-
 
     def deplacer_creeps(self):
         ## deplace chaque creep
@@ -88,11 +67,10 @@ class Modele:
             self.objets_animer.append(c)
         # self.compte_rebours(self.COOLDOWN_VAGUE) # attention, fonction bloquante
         # self.lancer_vague()
-        # animer_jeu() -> c'est lancer_vague qui a cette méthode
+      #  self.controle.animer_jeu()  # -> c'est lancer_vague qui a cette méthode
 
     def compte_rebours(self, temps_sec: int) -> None:
         while temps_sec > 0:
             print(f"Temps: {temps_sec}")
             sleep(temps_sec)
             temps_sec -= 1
-

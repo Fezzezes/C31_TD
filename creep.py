@@ -1,80 +1,49 @@
+import math
+import random
+
 class Creep:
     def __init__(self, parent):
         self.parent = parent
         self.isAlive = True
         self.isWalking = False
         self.taille = self.parent.unite_base / 2
-        self.couleur = "blue"
-        self.vitesseX = 3
-        self.vitesseY = 3
         self.currentT = 0
+
         self.t = self.parent.troncons[self.currentT]
-        self.limitXmin = self.t.posX
-        self.limitXmax = self.t.posX + self.t.largeur
-        self.limitYmin = self.t.posY
-        self.limitYmax = self.t.posY + self.t.hauteur
-        self.posX = self.t.posX
-        self.posY = self.t.posY
-        self.dir = self.t.dir
-
-        self.cibleY = self.t.posY + self.t.largeur -10
-        self.cibleX = self.t.posX
+        self.couleur = "blue"
+        self.posY = 0
+        self.posX = random.randint(self.t.minX, self.t.maxX)
+        self.cibleX, self.cibleY = self.trouver_cible()
+        self.vitesse=3
 
 
-    def collision(self):
-        if self.posX < self.limitXmin or self.posX + self.taille > self.limitXmax:
-            self.vitesseX *= -1
+    def trouver_cible(self):
 
-        if self.posY < self.limitYmin or self.posY + self.taille > self.limitYmax:
-            self.vitesseY *= -1
+        x= random.randint(self.t.minX, self.t.maxX)
+        y= random.randint(self.t.minY, self.t.maxY)
+        newCible= x,y
+        print(x,y)
+        return newCible
 
-    def changer_cible(self):
+    def calculer_vitesse(self):
+        dirX= self.cibleX -self.posX
+        dirY= self.cibleY-self.posY
+        distance= math.sqrt(dirX**2 + dirY**2)
 
-        if self.t.dir == "right":
-            if self.posX > self.cibleX:
-                print("changer cible")
-                self.currentT += 1
-                self.t = self.parent.troncons[self.currentT]
+        if distance!=0:
+            dirX/=distance
+            dirY/=distance
 
-            self.limitXmax = self.t.posX + self.t.largeur
-            self.limitXmin = self.t.posX
-            self.limitYmin = self.t.posY
-            self.limitYmax = self.t.posY + self.t.hauteur
-            self.cibleY = self.t.posY
-            self.vitesseX = 1
-            self.vitesseY = 1
-            self.cibleX = self.posX + self.t.largeur
-
-        elif self.t.dir == "down":
-            if self.posY > self.cibleY and self.posX == self.cibleX:
-                self.currentT += 1
-                self.t = self.parent.troncons[self.currentT]
-
-            self.limitXmin = self.t.posX
-            self.limitXmax = self.t.posX + self.t.largeur
-            self.limitYmin = self.t.posY
-            self.limitYmax = self.t.posY + self.t.hauteur
-            self.posX = self.t.posX
-            self.posY = self.t.posY
-            self.dir = self.t.dir
-
-            self.cibleY = self.t.posY + self.t.largeur
-            self.cibleX = self.t.posX
-
-
-
-
+        self.posX+=int (dirX*self.vitesse)
+        self.posY=int (dirY*self.vitesse)
 
     def deplacer(self):
-        # collision dans autre methode
-        self.collision()
-        print(self.cibleX)
-        print(self.cibleY)
-        print(self.t.dir)
 
-        self.changer_cible()
+        if(self.posY==self.cibleY and self.posX==self.cibleX):
+            self.trouver_cible()
 
-        self.posX = self.posX + self.vitesseX
-        self.posY = self.posY + self.vitesseY
+        else:
+           print(self.posY, self.posY)
+           self.calculer_vitesse()
 
         print(self.posY, self.posY)
