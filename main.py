@@ -33,14 +33,15 @@ class Controleur:
 
     def animer_jeu(self):
 
+
         if not self.testvar:
             self.vue.root.after(1000, self.waitingTime)  # change a 4000
             print(self.testvar)
 
         if self.testvar:
-            print("dans le loop")
+            # print("dans le loop")
             self.vue.animer_jeu()
-
+            self.modele.detecter_creeps()
             self.ajouterCreep()
             self.vue.root.after(50, self.animer_jeu)
 

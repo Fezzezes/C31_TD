@@ -6,7 +6,7 @@ class Tour:
     def __init__(self, parent, posX_1: int, posY_1: int, type: str):
         self.parent = parent
         self.taille = self.parent.unite_base/2
-        self.dectetion_range = 250;
+        self.dectetion_range = 2500;
         self.posX_1 = posX_1
         self.posY_1 = posY_1
         self.posX_2 = posX_1 + self.calculer_diagonale()
@@ -32,6 +32,7 @@ class Tour:
 
     def detecter_creep(self):
         # pour chaque creep du modele
+        print(self.parent.creeps)
         for c in self.parent.creeps:
             if c.isAlive:
                 print("centreX: ",self.centreX)
@@ -45,8 +46,8 @@ class Tour:
                 if dist <= self.rayon + self.calculer_rayon(c.taille):
                     #AJOUTER UN BREAK DU LOOP LORSQU'ON DECTECTE UN CREEP
                     # if self.cooldown <= 0:
-                        self.parent.creer_projectile(self, c)
-                        # self.cooldown = self.cooldown_base
+                    self.parent.creer_projectile(self, c)
+                    # self.cooldown = self.cooldown_base
 
         if self.cooldown > 0:
             self.cooldown -= 1
