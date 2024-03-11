@@ -2,6 +2,7 @@ import time
 
 from creep import Creep
 from projectile import Projectile
+from tour import Tour
 from troncon import Troncon
 from time import sleep
 
@@ -22,6 +23,8 @@ class Modele:
         self.argent = 5
         self.ARGENT_PAR_NIVEAU = 100
         self.creepBouge = 1
+        self.liste_tours = []
+
 
     def creer_troncons(self):
         ub = self.unite_base  # x, y, largeur, hauteur, maxX,minX,maxY,minY):
@@ -114,6 +117,11 @@ class Modele:
         for o in self.objets_animer:
             o.deplacer()
         pass
+
+    def creer_tour(self, posX: int, posY: int, type: str) -> tuple[int, Tour]:
+        tour = Tour(self, posX, posY, type)
+        self.liste_tours.append(tour)
+        return len(self.liste_tours) - 1, tour
 
     def init_vague(self) -> None:
         self.niveau += 1
