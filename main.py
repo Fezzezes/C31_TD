@@ -22,6 +22,7 @@ class Controleur:
     def animer_jeu(self):
         self.modele.deplacer_creeps()
         self.vue.animer_jeu()
+        self.modele.detecter_creeps()
         self.vue.root.after(50, self.animer_jeu)
 
 if __name__ == "__main__":

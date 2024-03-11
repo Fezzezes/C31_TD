@@ -14,7 +14,7 @@ class Creep:
         self.cibleX, self.cibleY = self.trouver_cible()
         self.posY = 0
         self.posX = self.cibleX
-        self.vitesse = 10
+        self.vitesse = 5
 
 
     def trouver_cible(self):

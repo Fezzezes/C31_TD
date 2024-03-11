@@ -1,6 +1,7 @@
 import time
 
 from creep import Creep
+from projectile import Projectile
 from troncon import Troncon
 from time import sleep
 
@@ -106,7 +107,6 @@ class Modele:
     def deplacer_creeps(self):
 
         for c in range(self.creepBouge):
-            print(c)
             if self.creepBouge < 20:
                 self.creepBouge += 1
 
@@ -164,6 +164,10 @@ class Modele:
     def detecter_creeps(self):
         # loop au travers de chaque tour
         for tour in self.tours:
-            tour.detecter_creep(self.creeps)
+            tour.detecter_creep()
+
+    def creer_projectile(self, tour, creep):
+        self.objets_animer.append(Projectile(tour, creep))
+        pass
 
 

@@ -241,31 +241,32 @@ class Vue:
 
     def test_tour_detection(self):
         # crée un tour
-        t1 = self.dict_interfaces["c_jeu"].create_rectangle(0, 0, 40, 40,
+        t1 = self.dict_interfaces["c_jeu"].create_rectangle(380, 400, 420, 440,
                                                             tags=("id_12", "t_poison", "lvl_2", "tour", "permanent"),
                                                             fill="pink")
+        self.modele.tours.append(Tour(self.modele, 380,400, "projectile"))
         pass
 
-    def test_projectile(self):
-        print("test projectile")
-        jeu = self.dict_interfaces["c_jeu"]
-
-        bouton_projectile = Button(jeu, text="pew pew", font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5,
-                                   wraplength=self.modele.unite_base * 2, command=self.creer_projectile)
-
-        bouton_projectile.place(relx=0.1, rely=0.8, anchor="center", relheight=0.1, relwidth=0.1)
+    # def test_projectile(self):
+    #     print("test projectile")
+    #     jeu = self.dict_interfaces["c_jeu"]
+    #
+    #     bouton_projectile = Button(jeu, text="pew pew", font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5,
+    #                                wraplength=self.modele.unite_base * 2, command=self.creer_projectile)
+    #
+    #     bouton_projectile.place(relx=0.1, rely=0.8, anchor="center", relheight=0.1, relwidth=0.1)
 
     def test_tour_et_projectile(self):
         self.test_tour_detection()
-        self.test_projectile()
+        # self.test_projectile()
         pass
 
-    def creer_projectile(self):
-        print(self.modele.creeps)
-        creep = self.modele.creeps[0]
-        proc = Projectile(0, 0, creep)
-        print(proc)
-        self.modele.objets_animer.append(proc)
-        # self.modele.objets_animer(proc)
-        pass
+    # def creer_projectile(self):
+    #     print(self.modele.creeps)
+    #     creep = self.modele.creeps[0]
+    #     proc = Projectile(0, 0, creep)
+    #     print(proc)
+    #     self.modele.objets_animer.append(proc)
+    #     # self.modele.objets_animer(proc)
+    #     pass
 
