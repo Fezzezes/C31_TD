@@ -13,7 +13,7 @@ class Creep:
         self.couleur = "blue"
         self.cibleX, self.cibleY = self.trouver_cible()
         self.posY = 0
-        self.posX = random.randint(int(self.t.minX+self.taille),int(self.t.maxX-self.taille))
+        self.posX = random.randint(int(self.t.minX+self.taille), int(self.t.maxX-self.taille))
         self.vitesse = 2
 
     def trouver_cible(self):
