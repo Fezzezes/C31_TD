@@ -124,7 +124,7 @@ class Modele:
             self.objets_animer.append(c)
         # self.compte_rebours(self.COOLDOWN_VAGUE) # attention, fonction bloquante
         # self.lancer_vague()
-        #self.controle.animer_jeu()  # -> c'est lancer_vague qui a cette méthode
+        self.controle.animer_jeu()  # -> c'est lancer_vague qui a cette méthode
 
     def compte_rebours(self, temps_sec: int) -> None:
         while temps_sec > 0:
