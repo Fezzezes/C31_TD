@@ -16,12 +16,9 @@ class Creep:
         self.posX = self.cibleX
         self.vitesse = 10
 
+
     def trouver_cible(self):
-
         newCible = self.t.cibleX, self.t.cibleY
-
-        print("cible: ")
-        print(self.t.cibleX, self.t.cibleY)
         return newCible
 
     def deplacement(self):
@@ -51,6 +48,5 @@ class Creep:
         self.posY += int(dirY * self.vitesse)
 
     def deplacer(self):
-
         self.deplacement()
 
