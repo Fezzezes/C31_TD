@@ -19,7 +19,6 @@ class Creep:
     def trouver_cible(self):
 
         newCible = self.t.cibleX, self.t.cibleY
-
         print("cible: ")
         print(self.t.cibleX, self.t.cibleY)
         return newCible

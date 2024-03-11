@@ -98,11 +98,9 @@ class Modele:
         pass
 
     def deplacer_creeps(self):
+        for c in self.creeps:
+            c.deplacer()
 
-        for c in range(self.creepBouge):
-            print(c)
-            if self.creepBouge < 20:
-                self.creepBouge += 1
         pass
 
     def init_vague(self) -> None:
@@ -117,19 +115,12 @@ class Modele:
             temps_sec -= 1
 
     def mourir(self, creep):
-        print(self.creeps)
-        print(self.objets_animer)
-
         index = self.creeps.index(creep)
         indexObject = self.objets_animer.index(creep)
-        print(index)
-        print(indexObject)
         self.argent += 5
         del self.creeps[index]
         del self.objets_animer[indexObject]
-        print(self.creeps)
-        print(self.objets_animer)
-        print("money", self.argent)
+
 
     def timer(self):
         start = time.time()
@@ -146,6 +137,7 @@ class Modele:
             c = Creep(self)
             self.creeps.append(c)
             self.objets_animer.append(c)
+        
 
         self.controle.animer_jeu()  # -> c'est lancer_vague qui a cette méthode
 
