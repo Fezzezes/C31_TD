@@ -7,7 +7,7 @@ class Modele:
     def __init__(self, controle):
 
         self.controle = controle
-        self.unite_base = 20 #INIT A 40 !!!!
+        self.unite_base = 40 #INIT A 40 !!!!
         self.troncons = []
         self.creeps = []
         self.objets_animer = []

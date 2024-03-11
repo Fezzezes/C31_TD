@@ -18,3 +18,5 @@ class Tour:
 
     def calculer_point_median(self, pos: int) -> float:
         return pos + self.calculer_diagonale() / 2
+
+    # fonction qui concatène le type ET le niveau et qui retourne une string
