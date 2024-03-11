@@ -16,13 +16,14 @@ class Modele:
         self.troncons = []
         self.creeps = []
         self.objets_animer = []
-        self.CREEP_PAR_NIVEAU = 3  # SWITCH BACK A 20
+        self.CREEP_PAR_NIVEAU = 10  # SWITCH BACK A 20
         self.tours = []
         self.niveau = 0
         self.COOLDOWN_VAGUE = 5
-        self.argent = 5
+        self.argent = 3
         self.ARGENT_PAR_NIVEAU = 100
         self.creepBouge = 1
+
         self.liste_tours = []
 
 
@@ -47,7 +48,6 @@ class Modele:
                     12 * ub,
                     16 * ub))
 
-
         self.troncons.append(
             Troncon(self,
                     11 * ub,
@@ -56,7 +56,6 @@ class Modele:
                     13 * ub,
                     12 * ub,
                     5 * ub))
-
 
         self.troncons.append(
             Troncon(self,
@@ -67,7 +66,6 @@ class Modele:
                     29 * ub,
                     5 * ub))
 
-
         self.troncons.append(
             Troncon(self,
                     28 * ub,
@@ -76,7 +74,6 @@ class Modele:
                     7 * ub,
                     29 * ub,
                     10 * ub))
-
 
         self.troncons.append(
             Troncon(self,
@@ -96,7 +93,6 @@ class Modele:
                     20 * ub,
                     16 * ub))
 
-
         self.troncons.append(
             Troncon(self,
                     19 * ub,
@@ -106,12 +102,6 @@ class Modele:
                     30 * ub,
                     16 * ub))
         pass
-
-    def deplacer_creeps(self):
-
-        for c in range(self.creepBouge):
-            if self.creepBouge < 20:
-                self.creepBouge += 1
 
     def deplacer_objets(self):
         for o in self.objets_animer:
@@ -126,6 +116,8 @@ class Modele:
     def init_vague(self) -> None:
         self.niveau += 1
         self.argent += self.ARGENT_PAR_NIVEAU
+        self.start = True
+
         self.lancer_vague()
 
     def compte_rebours(self, temps_sec: int) -> None:
@@ -135,39 +127,29 @@ class Modele:
             temps_sec -= 1
 
     def mourir(self, creep):
-        print(self.creeps)
-        print(self.objets_animer)
-
         index = self.creeps.index(creep)
         indexObject = self.objets_animer.index(creep)
-        print(index)
-        print(indexObject)
         self.argent += 5
         del self.creeps[index]
         del self.objets_animer[indexObject]
-        print(self.creeps)
-        print(self.objets_animer)
-        print("money", self.argent)
 
     def timer(self):
         start = time.time()
-        a = True
-        while a:
+
+        while self.start:
             currentTime = time.time()
             if currentTime - start >= 5:
                 print("time's up")
-                a = False
+                self.start = False
         pass
 
     def lancer_vague(self):
         for creep in range(self.CREEP_PAR_NIVEAU):
             c = Creep(self)
             self.creeps.append(c)
-            self.objets_animer.append(c)
+            # self.objets_animer.append(c)
 
         self.controle.animer_jeu()  # -> c'est lancer_vague qui a cette méthode
-
-        #  self.compte_rebours(self.COOLDOWN_VAGUE)  # attention, fonction bloquante
 
     def detecter_creeps(self):
         # loop au travers de chaque tour
@@ -178,4 +160,11 @@ class Modele:
         self.objets_animer.append(Projectile(tour, creep))
         pass
 
+    def ajouterCreep(self):
+        try:
+            i = self.creepBouge - 1
+            self.objets_animer.append(self.creeps[i])
+            self.creepBouge += 1
 
+        except IndexError:
+            print("max creep atteint :D")
