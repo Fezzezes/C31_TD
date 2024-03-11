@@ -44,11 +44,10 @@ class Tour:
                 print(dist ," <= " ,(self.rayon + self.calculer_rayon(c.taille)))
                 if dist <= self.rayon + self.calculer_rayon(c.taille):
                     #AJOUTER UN BREAK DU LOOP LORSQU'ON DECTECTE UN CREEP
-                    if self.cooldown <= 0:
+                    # if self.cooldown <= 0:
                         self.parent.creer_projectile(self, c)
-                        self.cooldown = self.cooldown_base
+                        # self.cooldown = self.cooldown_base
 
-        print(self.cooldown)
         if self.cooldown > 0:
             self.cooldown -= 1
 
