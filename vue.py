@@ -144,10 +144,10 @@ class Vue:
                                  tags=("troncon", "permanent"),
                                  fill="red")
 
+
     def animer_jeu(self):
-        # self.modele.deplacer_creeps()
-        self.modele.deplacer_objets()
         jeu = self.dict_interfaces["c_jeu"]
+        self.modele.deplacer_objets()
         objets = jeu.find_all()
         for o in objets:
             tags = jeu.gettags(o)
