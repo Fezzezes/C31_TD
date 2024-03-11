@@ -1,5 +1,7 @@
 from tkinter import *
 
+from tour import Tour
+
 
 class Vue:
     def __init__(self, controle, modele):
@@ -11,7 +13,6 @@ class Vue:
         ##creation  des interfaces graphiques
         self.dict_interfaces = {}
         self.creer_interfaces()
-        self.tour_temporaire = None
 
     def creer_interfaces(self):
         self.creer_frame_aire_jeu()
@@ -170,7 +171,10 @@ class Vue:
         self.dict_interfaces["c_jeu"].bind("<Button-1>",
                                            self.verifier_espace_dispo)
 
-    def verifier_espace_dispo(self):
+    def verifier_espace_dispo(self, evt):
+        # t = Tour(evt.x, evt.y, "test")
+        # tag_overlap = self.dict_interfaces["c_jeu"].find_overlapping(t.posX_1, t.posY_1, t.posX_2, t.posX)
+        #for item in items_overlapper:
         pass
 
     def afficher_tour_temporaire(self, evt):
