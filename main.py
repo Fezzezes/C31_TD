@@ -18,7 +18,7 @@ class Controleur:
         self.modele.creer_troncons()
         self.vue.afficher_troncons()
         self.modele.init_vague()
-        self.vue.test_tour_et_projectile()
+        # self.vue.test_tour_et_projectile()
         self.currentT = time.time();
         pass
 

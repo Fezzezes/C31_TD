@@ -153,10 +153,11 @@ class Modele:
 
     def detecter_creeps(self):
         # loop au travers de chaque tour
-        for tour in self.tours:
+        for tour in self.liste_tours:
             tour.detecter_creep()
 
     def creer_projectile(self, tour, creep):
+        print("hi")
         self.objets_animer.append(Projectile(tour, creep))
         pass
 
