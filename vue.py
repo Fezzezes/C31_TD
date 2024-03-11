@@ -172,18 +172,18 @@ class Vue:
         if p.type == "projectile":
             jeu.create_oval(p.posX, p.posY,
                             p.posX + p.taille, p.posY + p.taille / 2,
-                            fill=p.couleur, tags=("bloc", p.posX, p.posY))
+                            fill=p.couleur, tags=("projectile", p.posX, p.posY))
         elif p.type == "eclair":
-            self.frame_aire_jeu.create_line(p.posX, p.posY, p.cibleX, p.cibleY, fill='yellow', width=6)
+            self.frame_aire_jeu.create_line(p.posX, p.posY, p.cibleX, p.cibleY, fill='yellow', width=6, tags=("projectile", p.posX, p.posY))
 
         elif p.type == "laser":
             self.frame_aire_jeu.create_oval(p.posX, p.posY,
                                             p.posX + p.taille, p.posY + p.taille,
-                                            fill=p.couleur, tags=("bloc", p.posX, p.posY))
+                                            fill=p.couleur, tags=("projectile", p.posX, p.posY))
         elif p.type == "poison":
             self.frame_aire_jeu.create_oval(p.posX, p.posY,
                                             p.posX + p.taille, p.posY + p.taille,
-                                            fill="green", tags=("bloc", p.posX, p.posY))
+                                            fill="green", tags=("projectile", p.posX, p.posY))
         pass
 
 
@@ -241,10 +241,20 @@ class Vue:
 
     def test_tour_detection(self):
         # crée un tour
-        t1 = self.dict_interfaces["c_jeu"].create_rectangle(380, 400, 420, 440,
+        t1 = Tour(self.modele, 380, 400, "projectile")
+        self.modele.tours.append(t1)
+        self.dict_interfaces["c_jeu"].create_rectangle(t1.posX_1, t1.posY_1, t1.posX_2, t1.posY_2,
                                                             tags=("id_12", "t_poison", "lvl_2", "tour", "permanent"),
+
                                                             fill="pink")
-        self.modele.tours.append(Tour(self.modele, 380,400, "projectile"))
+        print("x1: ", t1.centreX+t1.dectetion_range)
+        print("y1: ", t1.centreY+t1.dectetion_range)
+        print("x2: ", t1.centreX-t1.dectetion_range)
+        print("y2: ", t1.centreY-t1.dectetion_range)
+        self.dict_interfaces["c_jeu"].create_oval(t1.centreX+t1.dectetion_range, t1.centreY+t1.dectetion_range,
+                        t1.centreX-t1.dectetion_range, t1.centreY-t1.dectetion_range,
+                         tags=("projectile", "permanent"))
+
         pass
 
     # def test_projectile(self):
