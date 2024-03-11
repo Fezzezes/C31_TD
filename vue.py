@@ -131,7 +131,7 @@ class Vue:
         ub = self.modele.unite_base
         jeu = self.dict_interfaces["c_jeu"]
 
-        jeu.create_oval(creep.posX, creep.posY,creep.posX+ub/2, creep.posY+ub/2, fill="red", tags=("creep",))
+        jeu.create_oval(creep.posX, creep.posY,creep.posX+ub/2, creep.posY+ub/2, fill="black", tags=("creep",))
 
 
     def construire_tour_projectile(self):
