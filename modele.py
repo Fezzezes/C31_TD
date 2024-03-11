@@ -7,11 +7,11 @@ class Modele:
     def __init__(self, controle):
 
         self.controle = controle
-        self.unite_base = 20 #INIT A 40 !!!!
+        self.unite_base = 20  # INIT A 40 !!!!
         self.troncons = []
         self.creeps = []
         self.objets_animer = []
-        self.CREEP_PAR_NIVEAU = 1 #SWITCH BACK A 20
+        self.CREEP_PAR_NIVEAU = 1  # SWITCH BACK A 20
         self.niveau = 0
         self.COOLDOWN_VAGUE = 5
         self.argent = 0
@@ -36,10 +36,10 @@ class Modele:
                     15 * ub,
                     8 * ub,
                     2 * ub,
-                    12*ub,
-                    12*ub,
-                    16*ub,
-                    15*ub))
+                    12 * ub,
+                    12 * ub,
+                    16 * ub,
+                    15 * ub))
 
         self.troncons.append(
             Troncon(self,
@@ -47,10 +47,10 @@ class Modele:
                     4 * ub,
                     2 * ub,
                     13 * ub,
-                    13*ub,
-                    12*ub,
-                    5*ub,
-                    4*ub))
+                    13 * ub,
+                    12 * ub,
+                    5 * ub,
+                    4 * ub))
 
         self.troncons.append(
             Troncon(self,
@@ -58,10 +58,10 @@ class Modele:
                     4 * ub,
                     17 * ub,
                     2 * ub,
-                    29*ub,
-                    29*ub,
-                    5*ub,
-                    4*ub))
+                    29 * ub,
+                    29 * ub,
+                    5 * ub,
+                    4 * ub))
 
         self.troncons.append(
             Troncon(self,
@@ -69,10 +69,10 @@ class Modele:
                     4 * ub,
                     2 * ub,
                     7 * ub,
-                    29*ub,
-                    29*ub,
-                    10*ub,
-                    9*ub))
+                    29 * ub,
+                    29 * ub,
+                    10 * ub,
+                    9 * ub))
 
         self.troncons.append(
             Troncon(self,
@@ -80,10 +80,10 @@ class Modele:
                     9 * ub,
                     11 * ub,
                     2 * ub,
-                    21*ub,
-                    20*ub,
-                    11*ub,
-                    10*ub))
+                    21 * ub,
+                    20 * ub,
+                    11 * ub,
+                    10 * ub))
 
         self.troncons.append(
             Troncon(self,
@@ -91,10 +91,10 @@ class Modele:
                     9 * ub,
                     2 * ub,
                     8 * ub,
-                    21*ub,
-                    20*ub,
-                    16*ub,
-                    15*ub))
+                    21 * ub,
+                    20 * ub,
+                    16 * ub,
+                    15 * ub))
 
         self.troncons.append(
             Troncon(self,
@@ -102,17 +102,21 @@ class Modele:
                     15 * ub,
                     10 * ub,
                     2 * ub,
-                    30*ub,
-                    30*ub,
-                    16.5*ub,
-                    15.5*ub))
+                    30 * ub,
+                    30 * ub,
+                    16.5 * ub,
+                    15.5 * ub))
         pass
 
     def deplacer_creeps(self):
         ## deplace chaque creep
         for c in self.creeps:
             c.deplacer()
+        pass
 
+    def deplacer_objets(self):
+        for o in self.objets_animer:
+            o.deplacer()
         pass
 
     def init_vague(self) -> None:

@@ -22,7 +22,7 @@ class Creep:
         y = random.randint(self.t.minY, self.t.maxY)
 
         newCible = x, y
-        print("cible: ")
+        # print("cible: ")
         print(x, y)
         return newCible
 
@@ -54,9 +54,9 @@ class Creep:
                 # CATCH ERROR ICI, SI PAS DE NEXT => --VIE + DELETE CREEP?
 
 
-        print("troncon: ",self.currentT)
-        print("pos avant: ", self.posX / self.parent.unite_base, self.posY / self.parent.unite_base)
-        print("cible ",self.cibleX/self.parent.unite_base, self.cibleY/self.parent.unite_base)
+        # print("troncon: ",self.currentT)
+        # print("pos avant: ", self.posX / self.parent.unite_base, self.posY / self.parent.unite_base)
+        # print("cible ",self.cibleX/self.parent.unite_base, self.cibleY/self.parent.unite_base)
         self.deplacement()
 
-        print("pos apres dep: ",self.posX/self.parent.unite_base, self.posY/self.parent.unite_base)
+        # print("pos apres dep: ",self.posX/self.parent.unite_base, self.posY/self.parent.unite_base)

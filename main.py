@@ -16,12 +16,14 @@ class Controleur:
         self.modele.creer_troncons()
         self.vue.afficher_troncons()
         self.modele.init_vague()
+        self.vue.test_projectile()
         pass
 
     def animer_jeu(self):
         self.modele.deplacer_creeps()
         self.vue.animer_jeu()
         self.vue.root.after(50, self.animer_jeu)
+
 
 
 

@@ -2,21 +2,26 @@ from helper import Helper as hp
 
 
 class Projectile:
-    def __init__(self, parent, x, y, creep):
+    def __init__(self, x, y, creep):
 
-        self.parent = parent
-        self.type = type
+        # self.parent = parent
+        self.type = "projectile"
         # valeur à balancer
         self.taille = 10
         self.couleur = "yellow"
-        self.speed = 5
+        self.speed = 40
 
         # position de départ
-        self.posX = parent.x1
-        self.posY = parent.y2
+        # self.posX = parent.x1
+        # self.posY = parent.y2
+        self.posX = x
+        self.posY = y
 
         # cible du projectile
         self.creep_cible = creep
+        print("creep: ",creep)
+        print("creep y: ", creep.posY)
+        print("creep x: ", creep.posX)
         self.cibleX = creep.posX
         self.cibleY = creep.posY
 
@@ -39,5 +44,6 @@ class Projectile:
 
     def impact(self):
         print("Impacte")
+        
         # self.parent.modele.projectiles.remove(self)
         pass
