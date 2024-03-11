@@ -11,7 +11,6 @@ class Controleur:
         self.vue.root.mainloop()
 
     def initialise_partie(self):
-        print("initpartie")
         self.modele.creer_troncons()
         self.vue.afficher_troncons()
         self.modele.init_vague()  # crée un problème, le jeu s'affiche après
