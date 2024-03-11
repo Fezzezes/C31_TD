@@ -134,7 +134,7 @@ class Vue:
         objets = jeu.find_all()
         for o in objets:
             tags = jeu.gettags(o)
-            if "troncon" not in tags:
+            if "permanent" not in tags:
                 jeu.delete(o)
 
         for o in self.modele.objets_animer:
@@ -205,11 +205,10 @@ class Vue:
         self.dict_interfaces[show].place(x=6 * self.modele.unite_base, y=5)
         pass
 
-    def test_tour_detecte(self):
+    def test_tour_detection(self):
         # crée un tour
-
         t1 = self.dict_interfaces["c_jeu"].create_rectangle(0, 0, 40, 40,
-                                                            tags=("id_12", "t_poison", "lvl_2", "troncon"),
+                                                            tags=("id_12", "t_poison", "lvl_2", "tour", "permanent"),
                                                             fill="pink")
         pass
 
@@ -221,6 +220,11 @@ class Vue:
                                    wraplength=self.modele.unite_base * 2, command=self.creer_projectile)
 
         bouton_projectile.place(relx=0.1, rely=0.8, anchor="center", relheight=0.1, relwidth=0.1)
+
+    def test_tour_et_projectile(self):
+        self.test_tour_detection()
+        self.test_projectile()
+        pass
 
     def creer_projectile(self):
         print(self.modele.creeps)

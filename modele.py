@@ -11,6 +11,7 @@ class Modele:
         self.troncons = []
         self.creeps = []
         self.objets_animer = []
+        self.tours = []
         self.CREEP_PAR_NIVEAU = 1  # SWITCH BACK A 20
         self.niveau = 0
         self.COOLDOWN_VAGUE = 5
@@ -135,3 +136,9 @@ class Modele:
             print(f"Temps: {temps_sec}")
             sleep(temps_sec)
             temps_sec -= 1
+
+    def detecter_creeps(self):
+        # loop au travers de chaque tour
+        for tour in self.tours:
+            tour.detecter_creep(self.creeps)
+
