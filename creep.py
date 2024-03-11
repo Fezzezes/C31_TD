@@ -13,17 +13,15 @@ class Creep:
         self.couleur = "blue"
         self.cibleX, self.cibleY = self.trouver_cible()
         self.posY = 0
-        self.posX = random.randint(int(self.t.minX+self.taille),int(self.t.maxX-self.taille))
-        self.vitesse = 2
+        self.posX = self.cibleX
+        self.vitesse = 10
 
     def trouver_cible(self):
 
-        x = random.randint(self.t.minX, self.t.maxX)
-        y = random.randint(self.t.minY, self.t.maxY)
+        newCible = self.t.cibleX, self.t.cibleY
 
-        newCible = x, y
         print("cible: ")
-        print(x, y)
+        print(self.t.cibleX, self.t.cibleY)
         return newCible
 
     def deplacement(self):
@@ -31,32 +29,26 @@ class Creep:
         dirY = self.cibleY - self.posY
         distance = math.sqrt(dirX ** 2 + dirY ** 2)
 
+        if distance <= 2:
+            self.currentT = self.currentT + 1
+            try:
+                self.t = self.parent.troncons[self.currentT]
+                self.cibleX, self.cibleY = self.trouver_cible()
+            except IndexError:
+                print("ARRIVER AU CHATEAU")
+                self.parent.mourir(self)
+
+            exit
+
         if distance != 0:
             dirX /= distance
             dirY /= distance
+
+        dirY = round(dirY)
+        dirX = round(dirX)
 
         self.posX += int(dirX * self.vitesse)
         self.posY += int(dirY * self.vitesse)
 
     def deplacer(self):
-
-        #BUG ICI, la posX est plus grande que cibleX, mais posY est plus petit que cibleY ???? speed/try-catch
-        #:[ NEED TO FIX THAT
-        if self.posY >= self.cibleY and self.posX >= self.cibleX:
-            print("cible atteint! :D")
-            self.currentT = self.currentT + 1
-            # try:
-            self.t = self.parent.troncons[self.currentT]
-            self.cibleX, self.cibleY = self.trouver_cible()
-            # except IndexError:
-            #     print("UN CREEP EST RENTRE DANS LE CHATEAU D:<")
-            #     self.isAlive = False
-                # CATCH ERROR ICI, SI PAS DE NEXT => --VIE + DELETE CREEP?
-
-
-        print("troncon: ",self.currentT)
-        print("pos avant: ", self.posX / self.parent.unite_base, self.posY / self.parent.unite_base)
-        print("cible ",self.cibleX/self.parent.unite_base, self.cibleY/self.parent.unite_base)
         self.deplacement()
-
-        print("pos apres dep: ",self.posX/self.parent.unite_base, self.posY/self.parent.unite_base)
