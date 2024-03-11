@@ -11,6 +11,7 @@ class Tour:
         self.posY_2 = posY_1 + self.calculer_diagonale()
         self.centreX = self.calculer_point_median(self.posX_1)
         self.centreY = self.calculer_point_median(self.posY_1)
+        self.rayon = self.calculer_rayon(self.taille)
         self.type = type
         self.niveau = 1
 
@@ -20,4 +21,7 @@ class Tour:
     def calculer_point_median(self, pos: int) -> float:
         return pos + self.calculer_diagonale() / 2
 
-    # fonction qui concatène le type ET le niveau et qui retourne une string
+    def calculer_rayon(self, taille: float) -> float:
+        return taille / 2 * sqrt(2)
+
+    # pour ameliorer: fonction qui concatène le type ET le niveau et qui retourne une string

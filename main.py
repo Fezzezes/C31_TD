@@ -22,6 +22,10 @@ class Controleur:
         self.vue.animer_jeu()
         self.vue.root.after(50, self.animer_jeu)
 
+    def creer_tour(self, posX: int, posY: int, type: str) -> None:
+        index, tour = self.modele.creer_tour(posX, posY, type)
+        self.vue.dessiner_tour(str(index), tour)
+
 
 if __name__ == "__main__":
     c = Controleur()

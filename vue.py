@@ -5,7 +5,7 @@ from tour import Tour
 
 class Vue:
     def __init__(self, controle, modele):
-        self.controle = controle
+        self.controle = controle # parent
         self.modele = modele
         self.root = Tk()
         self.root.title("Tower Defense")
@@ -67,17 +67,18 @@ class Vue:
                                    font=("Arial", 14), fg="blue", bg="gray",
                                    padx=10, pady=5,
                                    wraplength=ub * 2,
-                                   command=self.construire_tour_projectile)
+                                   command=lambda: self.construire_tour(
+                                       "projectile"))
         bouton_eclair = Button(frame_construction, text="tour à éclair",
                                font=("Arial", 14), fg="blue", bg="lightgray",
                                padx=10, pady=5,
                                wraplength=ub * 2,
-                               command=self.construire_tour_eclair)
+                               command=lambda: self.construire_tour("éclair"))
         bouton_poison = Button(frame_construction, text="tour de poison",
                                font=("Arial", 14), fg="blue", bg="gray",
                                padx=10, pady=5,
                                wraplength=ub * 2,
-                               command=self.construire_tour_poison)
+                               command=lambda: self.construire_tour("poison"))
 
         bouton_projectile.place(relx=0.2, rely=0.5, anchor="center",
                                 relheight=0.5, relwidth=0.2)
@@ -165,30 +166,43 @@ class Vue:
         jeu.create_oval(creep.posX, creep.posY, creep.posX + ub / 2,
                         creep.posY + ub / 2, fill="black", tags=("creep",))
 
-    def construire_tour_projectile(self):
+    def dessiner_tour(self, index: str, tour: Tour):
+        tag = "id_" + index
+        self.dict_interfaces["c_jeu"].create_rectangle(tour.posX_1, tour.posY_1,
+                                                       tour.posX_2, tour.posY_2,
+                                                       fill="pink",
+                                                       tags=(tag, "permanent"))
+
+    def construire_tour(self, type: str):
+        print(type)
         self.dict_interfaces["c_jeu"].bind("<Motion>",
                                            self.afficher_tour_temporaire)
         self.dict_interfaces["c_jeu"].bind("<Button-1>",
-                                           self.verifier_espace_dispo)
+                                           lambda event, t=type: self.desactiver_tour_temporaire(event, t))
 
-    def verifier_espace_dispo(self, evt):
-        # t = Tour(evt.x, evt.y, "test")
-        # tag_overlap = self.dict_interfaces["c_jeu"].find_overlapping(t.posX_1, t.posY_1, t.posX_2, t.posX)
-        #for item in items_overlapper:
-        pass
+    def desactiver_tour_temporaire(self, evt, type: str) -> None:
+        print(type)
+        self.dict_interfaces["c_jeu"].unbind("<Motion>")
+        self.dict_interfaces["c_jeu"].unbind("<Button-1>")
+        self.retirer_tour_temporaire(evt, type)
 
-    def afficher_tour_temporaire(self, evt):
+    def retirer_tour_temporaire(self, evt, type: str) -> None:
+        # Attention, si la taille de la tour change il faudra changer ici.
+        x1, y1, x2, y2 = (evt.x, evt.y, (evt.x + self.modele.unite_base),
+                          (evt.y + self.modele.unite_base))
+        item_overlap = self.dict_interfaces["c_jeu"].find_overlapping(x1, y1,
+                                                                      x2, y2)
+        for item in item_overlap:
+            if "permanent" in self.dict_interfaces["c_jeu"].gettags(item):
+                return
+        self.controle.creer_tour(x1, y1, type)
+
+    def afficher_tour_temporaire(self, evt) -> None:
         self.dict_interfaces["c_jeu"].delete("temporaire")
         self.dict_interfaces["c_jeu"].create_rectangle(evt.x, evt.y,
                                                        evt.x + 20, evt.y + 20,
                                                        fill="blue",
                                                        tags="temporaire")
-
-    def construire_tour_eclair(self):
-        pass
-
-    def construire_tour_poison(self):
-        pass
 
     def upgrade(self):
         pass
