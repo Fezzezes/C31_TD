@@ -253,7 +253,11 @@ class Vue:
         print("y2: ", t1.centreY-t1.dectetion_range)
         self.dict_interfaces["c_jeu"].create_oval(t1.centreX+t1.dectetion_range, t1.centreY+t1.dectetion_range,
                         t1.centreX-t1.dectetion_range, t1.centreY-t1.dectetion_range,
-                         tags=("projectile", "permanent"))
+                         tags=("range", "permanent"))
+
+        self.dict_interfaces["c_jeu"].create_oval(t1.centreX+t1.dectetion_range, t1.centreY+t1.dectetion_range,
+                        t1.centreX-t1.dectetion_range, t1.centreY-t1.dectetion_range,
+                         tags=("range", "permanent"))
 
         pass
 
