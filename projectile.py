@@ -44,6 +44,6 @@ class Projectile:
 
     def impact(self):
         print("Impacte")
-        
+
         # self.parent.modele.projectiles.remove(self)
         pass

@@ -18,3 +18,5 @@ class Tour:
 
     def calculer_point_median(self, pos: int) -> float:
         return pos + self.calculer_diagonale() / 2
+
+

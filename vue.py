@@ -205,14 +205,17 @@ class Vue:
         self.dict_interfaces[show].place(x=6 * self.modele.unite_base, y=5)
         pass
 
+    def test_tour_detecte(self):
+        # crée un tour
+
+        t1 = self.dict_interfaces["c_jeu"].create_rectangle(0, 0, 40, 40,
+                                                            tags=("id_12", "t_poison", "lvl_2", "troncon"),
+                                                            fill="pink")
+        pass
+
     def test_projectile(self):
         print("test projectile")
         jeu = self.dict_interfaces["c_jeu"]
-
-        t1 = jeu.create_rectangle(0, 0, 40, 40, tags=("id_12", "t_poison", "lvl_2", "troncon"),
-                                  fill="pink")
-        t2 = jeu.create_rectangle(300, 300, 340, 340, tags=("id_15", "t_eclair", "lvl_2", "troncon"),
-                                  fill="blue")
 
         bouton_projectile = Button(jeu, text="pew pew", font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5,
                                    wraplength=self.modele.unite_base * 2, command=self.creer_projectile)
