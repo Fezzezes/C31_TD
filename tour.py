@@ -6,7 +6,7 @@ class Tour:
     def __init__(self, parent, posX_1: int, posY_1: int, type: str):
         self.parent = parent
         self.taille = self.parent.unite_base/2
-        self.dectetion_range = 250;
+        self.dectetion_range = 250
         self.posX_1 = posX_1
         self.posY_1 = posY_1
         self.posX_2 = posX_1 + self.calculer_diagonale()

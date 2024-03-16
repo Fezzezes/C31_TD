@@ -24,7 +24,7 @@ class Vue:
     def creer_frame_aire_jeu(self):
         canvas_aire_jeu = Canvas(self.root, width=self.modele.unite_base * 32,
                                  height=self.modele.unite_base * 19,
-                                 bg="orange")
+                                 bg="SpringGreen4")
 
         # frame_aire_jeu.bind("<Button>", self.test_tags)
         canvas_aire_jeu.pack()
@@ -46,7 +46,7 @@ class Vue:
 
     def creer_frame_menu(self):
         frame_menu = Frame(self.root, width=self.modele.unite_base * 32,
-                           height=self.modele.unite_base * 5, bg="red")
+                           height=self.modele.unite_base * 5, bg="light slate gray")
 
         frame_menu.pack()
         self.dict_interfaces.update({"f_menu": frame_menu})
@@ -60,24 +60,25 @@ class Vue:
         ub = self.modele.unite_base
         frame_construction = Frame(self.dict_interfaces["f_menu"],
                                    width=ub * 12,
-                                   height=ub * 4, bg="blue")
+                                   height=ub * 4, bd=2,
+                                 highlightthickness=2, relief="sunken", bg="sea green")
 
-        frame_construction.place(x=6 * ub, y=5)
+        frame_construction.place(x=10 * ub, y=5)
 
         bouton_projectile = Button(frame_construction,
                                    text="tour à projectile",
-                                   font=("Arial", 14), fg="blue", bg="gray",
+                                   font=("Arial", 14,), bg="RoyalBlue4",
                                    padx=10, pady=5,
-                                   wraplength=ub * 2,
+                                   wraplength=ub * 2,fg="white",
                                    command=lambda: self.construire_tour(
                                        "projectile"))
         bouton_eclair = Button(frame_construction, text="tour à éclair",
-                               font=("Arial", 14), fg="blue", bg="lightgray",
+                               font=("Arial", 14), fg="light yellow", bg="goldenrod",
                                padx=10, pady=5,
                                wraplength=ub * 2,
                                command=lambda: self.construire_tour("éclair"))
         bouton_poison = Button(frame_construction, text="tour de poison",
-                               font=("Arial", 14), fg="blue", bg="gray",
+                               font=("Arial", 14), fg="white", bg="DarkOrchid4",
                                padx=10, pady=5,
                                wraplength=ub * 2,
                                command=lambda: self.construire_tour("poison"))
@@ -150,7 +151,13 @@ class Vue:
         for t in self.modele.troncons:
             jeu.create_rectangle(t.posX, t.posY, (t.posX + t.largeur), (t.posY + t.hauteur),
                                  tags=("troncon", "permanent"),
-                                 fill="red")
+                                 fill="salmon4", outline='')
+            if t == self.modele.troncons[-1]:
+                jeu.create_rectangle(t.posX, t.posY, (t.posX + t.largeur), (t.posY + t.hauteur),
+                                     tags=("troncon", "permanent"),
+                                     fill="gold", outline='')
+
+
 
 
     def animer_jeu(self):
@@ -172,7 +179,8 @@ class Vue:
         ub = self.modele.unite_base
         jeu = self.dict_interfaces["c_jeu"]
 
-        jeu.create_oval(creep.posX, creep.posY, creep.posX + ub / 2, creep.posY + ub / 2, fill="black", tags=("creep",))
+        jeu.create_oval(creep.posX, creep.posY, creep.posX + ub / 2, creep.posY + ub / 2,
+                        fill="LavenderBlush4", tags=("creep",), outline='')
 
     def dessine_projectile(self, p):
 
@@ -200,7 +208,7 @@ class Vue:
         self.dict_interfaces["c_jeu"].create_rectangle(tour.posX_1, tour.posY_1,
                                                        tour.posX_2, tour.posY_2,
                                                        fill="pink",
-                                                       tags=(tag, "permanent"))
+                                                       tags=(tag, "permanent"), outline='')
 
     def construire_tour(self, type: str):
         print(type)
@@ -230,7 +238,7 @@ class Vue:
         self.dict_interfaces["c_jeu"].delete("temporaire")
         self.dict_interfaces["c_jeu"].create_rectangle(evt.x, evt.y,
                                                        evt.x + 20, evt.y + 20,
-                                                       fill="blue",
+                                                       fill="red",
                                                        tags="temporaire")
 
     def upgrade(self):

@@ -5,9 +5,8 @@ from tkinter import *
 
 class Controleur:
     def __init__(self):
-        self.testvar = False
-        self.currentT = time.time()
-
+        self.tempsMort = False
+        self.compteur=0
         self.modele = Modele(self)
         self.vue = Vue(self, self.modele)
         self.initialise_partie()
@@ -19,11 +18,10 @@ class Controleur:
         self.vue.afficher_troncons()
         self.modele.init_vague()
         self.vue.test_tour_et_projectile()
-        self.currentT = time.time();
         pass
 
     def waitingTime(self):
-        self.testvar = True
+        self.tempsMort = True
         self.animer_jeu()
         pass
 
@@ -32,16 +30,14 @@ class Controleur:
             self.modele.ajouterCreep()
 
     def animer_jeu(self):
+        if not self.tempsMort:
+            self.vue.root.after(5000, self.waitingTime)  # change a 4000
 
-        if not self.testvar:
-            self.vue.root.after(1000, self.waitingTime)  # change a 4000
-            print(self.testvar)
-
-        if self.testvar:
-            print("dans le loop")
+        if self.tempsMort:
             self.vue.animer_jeu()
-
-            self.ajouterCreep()
+            self.compteur += 1
+            if self.modele.creepCreer < 20 and self.compteur % 20 == 1:  # change 20 pour ralenir ou accelerer
+                self.modele.ajouterCreep()
             self.vue.root.after(50, self.animer_jeu)
 
 

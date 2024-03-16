@@ -12,7 +12,7 @@ class Modele:
 
         self.controle = controle
 
-        self.unite_base = 40
+        self.unite_base = 20
         self.troncons = []
         self.creeps = []
         self.objets_animer = []
@@ -22,7 +22,7 @@ class Modele:
         self.COOLDOWN_VAGUE = 5
         self.argent = 3
         self.ARGENT_PAR_NIVEAU = 100
-        self.creepBouge = 1
+        self.creepCreer = 0
 
         self.liste_tours = []
 
@@ -101,6 +101,15 @@ class Modele:
                     2 * ub,
                     30 * ub,
                     16 * ub))
+
+        self.troncons.append(
+            Troncon(self,
+                    29 * ub,
+                    15 * ub,
+                    2 * ub,
+                    2 * ub,
+                    30 * ub,
+                    16 * ub))
         pass
 
     def deplacer_objets(self):
@@ -117,7 +126,6 @@ class Modele:
         self.niveau += 1
         self.argent += self.ARGENT_PAR_NIVEAU
         self.start = True
-
         self.lancer_vague()
 
     def compte_rebours(self, temps_sec: int) -> None:
@@ -144,9 +152,9 @@ class Modele:
         pass
 
     def lancer_vague(self):
-        for creep in range(self.CREEP_PAR_NIVEAU):
-            c = Creep(self)
-            self.creeps.append(c)
+        # for creep in range(self.CREEP_PAR_NIVEAU):
+        #     c = Creep(self)
+        #     self.creeps.append(c)
             # self.objets_animer.append(c)
 
         self.controle.animer_jeu()  # -> c'est lancer_vague qui a cette méthode
@@ -161,10 +169,8 @@ class Modele:
         pass
 
     def ajouterCreep(self):
-        try:
-            i = self.creepBouge - 1
-            self.objets_animer.append(self.creeps[i])
-            self.creepBouge += 1
+        c = Creep(self)
+        self.creeps.append(c)
+        self.objets_animer.append(c)
+        self.creepCreer+=1
 
-        except IndexError:
-            print("max creep atteint :D")
