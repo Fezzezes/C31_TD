@@ -19,9 +19,9 @@ class Projectile:
 
         # cible du projectile
         self.creep_cible = creep
-        print("creep: ",creep)
-        print("creep y: ", creep.posY)
-        print("creep x: ", creep.posX)
+        # print("creep: ",creep)
+        # print("creep y: ", creep.posY)
+        # print("creep x: ", creep.posX)
         self.cibleX = creep.posX
         self.cibleY = creep.posY
 

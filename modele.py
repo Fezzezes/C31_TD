@@ -26,7 +26,6 @@ class Modele:
 
         self.liste_tours = []
 
-
     def creer_troncons(self):
         ub = self.unite_base  # x, y, largeur, hauteur, maxX,minX,maxY,minY):
 
@@ -104,9 +103,9 @@ class Modele:
         pass
 
     def deplacer_objets(self):
+        # deplace tous les objets du canvas n'ayant pas le tag static
         for o in self.objets_animer:
             o.deplacer()
-        pass
 
     def creer_tour(self, posX: int, posY: int, type: str) -> tuple[int, Tour]:
         tour = Tour(self, posX, posY, type)
@@ -157,7 +156,6 @@ class Modele:
             tour.detecter_creep()
 
     def creer_projectile(self, tour, creep):
-        print("hi")
         self.objets_animer.append(Projectile(tour, creep))
         pass
 
