@@ -187,7 +187,7 @@ class Vue:
             jeu.create_oval(p.posX, p.posY,
                             p.posX + p.taille, p.posY + p.taille / 2,
                             fill=p.couleur, tags=("projectile", p.posX, p.posY))
-        elif p.type == "eclair":
+        elif p.type == "éclair":
             jeu.create_line(p.posX, p.posY, p.cibleX, p.cibleY, fill='yellow', width=6,
                                             tags=("projectile", p.posX, p.posY))
 
@@ -207,6 +207,17 @@ class Vue:
                                                        tour.posX_2, tour.posY_2,
                                                        fill="pink",
                                                        tags=(tag, "permanent"))
+
+    def dessine_range(self, tour):
+
+        x1 = tour.centreX + tour.range_detection
+        y1 = tour.centreY + tour.range_detection
+        x2 = tour.centreX - tour.range_detection
+        y2 = tour.centreY - tour.range_detection
+        color = "black"
+        if tour.detecte_un_creep:
+            color = "red"
+        self.dict_interfaces["c_jeu"].create_oval(x1, y1, x2, y2, outline=color, width=4, tags=("range",))
 
     def construire_tour(self, type: str):
         print(type)
@@ -266,16 +277,7 @@ class Vue:
         self.dict_interfaces[show].place(x=6 * self.modele.unite_base, y=5)
         pass
 
-    def dessine_range(self, tour):
 
-        x1 = tour.centreX + tour.dectetion_range
-        y1 = tour.centreY + tour.dectetion_range
-        x2 = tour.centreX - tour.dectetion_range
-        y2 = tour.centreY - tour.dectetion_range
-        color = "black"
-        if tour.detecte_un_creep:
-            color = "red"
-        self.dict_interfaces["c_jeu"].create_oval(x1, y1, x2, y2, outline=color, width=4, tags=("range",))
 
     # def test_projectile(self):
     #     print("test projectile")
