@@ -5,10 +5,9 @@ from creep import Creep
 from projectile import Projectile
 
 
-
 class Vue:
     def __init__(self, controle, modele):
-        self.controle = controle # parent
+        self.controle = controle  # parent
         self.modele = modele
         self.root = Tk()
         self.root.title("Tower Defense")
@@ -42,7 +41,6 @@ class Vue:
         bouton_amelioration.place(relx=0.8, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
         self.dict_interfaces.update({"b_construction": bouton_construction})
         self.dict_interfaces.update({"b_amelioration": bouton_amelioration})
-
 
     def creer_frame_menu(self):
         frame_menu = Frame(self.root, width=self.modele.unite_base * 32,
@@ -159,21 +157,29 @@ class Vue:
 
 
 
-
     def animer_jeu(self):
         jeu = self.dict_interfaces["c_jeu"]
-        self.modele.deplacer_objets()
         objets = jeu.find_all()
+        # deplace les objets non static du canvas
+        # passer par le controleur au lieu de directement par le modele ????????????????????????
+        self.modele.deplacer_objets()
+
+        # delete les objets non permanents du canvas
         for o in objets:
             tags = jeu.gettags(o)
             if "permanent" not in tags:
                 jeu.delete(o)
 
+        # dessine les creeps et les projectiles
         for o in self.modele.objets_animer:
             if isinstance(o, Creep):
                 self.dessine_creep(o)
             elif isinstance(o, Projectile):
                 self.dessine_projectile(o)
+
+        # dessine la zone de dectection des tours
+        for t in self.modele.liste_tours:
+            self.dessine_range(t)
 
     def dessine_creep(self, creep):
         ub = self.modele.unite_base
@@ -189,19 +195,19 @@ class Vue:
             jeu.create_oval(p.posX, p.posY,
                             p.posX + p.taille, p.posY + p.taille / 2,
                             fill=p.couleur, tags=("projectile", p.posX, p.posY))
-        elif p.type == "eclair":
-            self.frame_aire_jeu.create_line(p.posX, p.posY, p.cibleX, p.cibleY, fill='yellow', width=6, tags=("projectile", p.posX, p.posY))
+        elif p.type == "éclair":
+            jeu.create_line(p.posX, p.posY, p.cibleX, p.cibleY, fill='yellow', width=6,
+                                            tags=("projectile", p.posX, p.posY))
 
         elif p.type == "laser":
-            self.frame_aire_jeu.create_oval(p.posX, p.posY,
+            jeu.create_oval(p.posX, p.posY,
                                             p.posX + p.taille, p.posY + p.taille,
                                             fill=p.couleur, tags=("projectile", p.posX, p.posY))
         elif p.type == "poison":
-            self.frame_aire_jeu.create_oval(p.posX, p.posY,
+            jeu.create_oval(p.posX, p.posY,
                                             p.posX + p.taille, p.posY + p.taille,
                                             fill="green", tags=("projectile", p.posX, p.posY))
         pass
-
 
     def dessiner_tour(self, index: str, tour: Tour):
         tag = "id_" + index
@@ -209,6 +215,17 @@ class Vue:
                                                        tour.posX_2, tour.posY_2,
                                                        fill="pink",
                                                        tags=(tag, "permanent"), outline='')
+
+    def dessine_range(self, tour):
+
+        x1 = tour.centreX + tour.range_detection
+        y1 = tour.centreY + tour.range_detection
+        x2 = tour.centreX - tour.range_detection
+        y2 = tour.centreY - tour.range_detection
+        color = "black"
+        if tour.detecte_un_creep:
+            color = "red"
+        self.dict_interfaces["c_jeu"].create_oval(x1, y1, x2, y2, outline=color, width=4, tags=("range",))
 
     def construire_tour(self, type: str):
         print(type)
@@ -268,27 +285,7 @@ class Vue:
         self.dict_interfaces[show].place(x=6 * self.modele.unite_base, y=5)
         pass
 
-    def test_tour_detection(self):
-        # crée un tour
-        t1 = Tour(self.modele, 380, 400, "projectile")
-        self.modele.tours.append(t1)
-        self.dict_interfaces["c_jeu"].create_rectangle(t1.posX_1, t1.posY_1, t1.posX_2, t1.posY_2,
-                                                            tags=("id_12", "t_poison", "lvl_2", "tour", "permanent"),
 
-                                                            fill="pink")
-        print("x1: ", t1.centreX+t1.dectetion_range)
-        print("y1: ", t1.centreY+t1.dectetion_range)
-        print("x2: ", t1.centreX-t1.dectetion_range)
-        print("y2: ", t1.centreY-t1.dectetion_range)
-        self.dict_interfaces["c_jeu"].create_oval(t1.centreX+t1.dectetion_range, t1.centreY+t1.dectetion_range,
-                        t1.centreX-t1.dectetion_range, t1.centreY-t1.dectetion_range,
-                         tags=("range", "permanent"))
-
-        self.dict_interfaces["c_jeu"].create_oval(t1.centreX+t1.dectetion_range, t1.centreY+t1.dectetion_range,
-                        t1.centreX-t1.dectetion_range, t1.centreY-t1.dectetion_range,
-                         tags=("range", "permanent"))
-
-        pass
 
     # def test_projectile(self):
     #     print("test projectile")
@@ -312,4 +309,3 @@ class Vue:
     #     self.modele.objets_animer.append(proc)
     #     # self.modele.objets_animer(proc)
     #     pass
-
