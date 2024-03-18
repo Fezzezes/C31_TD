@@ -21,17 +21,10 @@ class Tour:
         self.cooldown = 0
         self.detecte_un_creep = False
 
-    def calculer_diagonale(self) -> float:
-        return sqrt(2) * self.taille
-
-    def calculer_point_median(self, pos: int) -> float:
-        return pos + self.calculer_diagonale() / 2
 
     def calculer_range_detection(self, detection_range: float) -> float:
         return detection_range * math.sqrt(2)
 
-    def calculer_rayon(self, taille: float) -> float:
-        return taille / 2 * sqrt(2)
 
     def detecter_creep(self):
         # pour chaque creep du modele
