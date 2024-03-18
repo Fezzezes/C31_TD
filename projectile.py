@@ -18,8 +18,9 @@ class Projectile:
 
         # cible du projectile
         self.creep_cible = creep
-        self.cibleX = creep.posX
-        self.cibleY = creep.posY
+
+        self.cibleX = hp.calculer_point_median(creep.posX, creep.taille)
+        self.cibleY = hp.calculer_point_median(creep.posY, creep.taille)
 
         self.angle = None
         self.dist_precedente = hp.calcDistance(self.posX, self.posY, self.cibleX, self.cibleY)
@@ -30,9 +31,8 @@ class Projectile:
         # trouve l'angle vers la cible
         self.angle = hp.calcAngle(self.posX, self.posY, self.cibleX, self.cibleY)
         dist = self.calcule_distance_fin_trajectoire(self.posX, self.posY, self.cibleX, self.cibleY)
-
+        # pour conserver une animation fluide, on calcule la vitesse idéale pour qu'un projectile atteigne le creep
         self.speed = dist/(self.creep_cible.taille/(self.creep_cible.vitesse*1.5))
-        print("vitesse: ", self.speed)
 
     def deplacer(self):
         # deplace vers la cible
