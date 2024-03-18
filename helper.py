@@ -25,3 +25,18 @@ class Helper(object):
         return distance
 
     calcDistance = staticmethod(calcDistance)
+
+    def calculer_rayon(taille: float) -> float:
+        return taille / 2 * math.sqrt(2)
+
+    calculer_rayon = staticmethod(calculer_rayon)
+
+    def calculer_diagonale(taille: float) -> float:
+        return math.sqrt(2) * taille
+
+    calculer_diagonale = staticmethod(calculer_diagonale)
+
+    def calculer_point_median(pos: int, taille: float) -> float:
+        return pos + Helper.calculer_diagonale(taille) / 2
+
+    calculer_point_median = staticmethod(calculer_point_median)

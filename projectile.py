@@ -30,7 +30,9 @@ class Projectile:
         # trouve l'angle vers la cible
         self.angle = hp.calcAngle(self.posX, self.posY, self.cibleX, self.cibleY)
         dist = self.calcule_distance_fin_trajectoire(self.posX, self.posY, self.cibleX, self.cibleY)
-        self.speed = dist/(self.creep_cible.taille/self.creep_cible.vitesse)
+
+        self.speed = dist/(self.creep_cible.taille/(self.creep_cible.vitesse*1.5))
+        print("vitesse: ", self.speed)
 
     def deplacer(self):
         # deplace vers la cible
