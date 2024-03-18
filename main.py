@@ -17,7 +17,7 @@ class Controleur:
         self.modele.creer_troncons()
         self.vue.afficher_troncons()
         self.modele.init_vague()
-        self.vue.test_tour_et_projectile()
+        # self.vue.test_tour_et_projectile()
 
         pass
 
@@ -35,6 +35,7 @@ class Controleur:
             self.vue.root.after(5000, self.waitingTime)  # change a 4000
 
         if self.tempsMort:
+            self.modele.detecter_creeps()
             self.vue.animer_jeu()
             self.compteur += 1
             if self.modele.creepCreer < self.modele.CREEP_PAR_NIVEAU and self.compteur % 20 == 1:  # change 20 pour ralenir ou accelerer
