@@ -232,7 +232,6 @@ class Vue:
     def dessine_projectile(self, p):
 
         jeu = self.dict_interfaces["c_jeu"]
-        print("hi")
         if p.type == "projectile":
             jeu.create_oval(p.posX, p.posY,
                             p.posX + p.taille, p.posY + p.taille / 2,

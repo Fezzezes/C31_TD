@@ -10,7 +10,7 @@ class Projectile:
         # valeur à balancer
         self.taille = 20
         self.couleur = "yellow"
-        self.speed = 100
+        # self.speed = 100
 
         # position de départ
         self.posX = parent.centreX
@@ -29,21 +29,19 @@ class Projectile:
     def trouver_cible(self):
         # trouve l'angle vers la cible
         self.angle = hp.calcAngle(self.posX, self.posY, self.cibleX, self.cibleY)
-        # self.speed =
+        dist = self.calcule_distance_fin_trajectoire(self.posX, self.posY, self.cibleX, self.cibleY)
+        self.speed = dist/(self.creep_cible.taille/self.creep_cible.vitesse)
 
     def deplacer(self):
         # deplace vers la cible
         if self.angle is None:
             self.trouver_cible()
-            if self.type != "éclair":
-                # permet d'afficher le projectile au moins une fois si la cible est très proche de la tour
-                self.posX, self.posY = hp.getAngledPoint(self.angle, self.speed/2, self.posX, self.posY)
         else:
             self.posX, self.posY = hp.getAngledPoint(self.angle, self.speed, self.posX, self.posY)
             dist = self.calcule_distance_fin_trajectoire(self.posX, self.posY, self.cibleX, self.cibleY)
             # si la distance est plus petite que la vitesse, next cible
-            print("fin de la trajectoire?", dist, "<= ", self.speed / 3, " ? ", (dist <= self.speed / 4))
-            if dist <= self.speed / 3 or dist > self.parent.range_detection:
+            # print("fin de la trajectoire?", dist, "<= ", self.speed / 3, " ? ", (dist <= self.speed / 4))
+            if dist <= 0 or dist > self.parent.range_detection:
                 self.posX, self.posY = self.cibleX, self.cibleY
                 self.trajet_fini = True
                 
