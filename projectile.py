@@ -10,7 +10,7 @@ class Projectile:
         # valeur à balancer
         self.taille = 20
         self.couleur = "yellow"
-        self.speed = 0
+        self.speed = 100
 
         # position de départ
         self.posX = parent.centreX
@@ -45,7 +45,7 @@ class Projectile:
             print("fin de la trajectoire?", dist, "<= ", self.speed / 3, " ? ", (dist <= self.speed / 4))
             if dist <= self.speed / 3 or dist > self.parent.range_detection:
                 self.posX, self.posY = self.cibleX, self.cibleY
-                self.trajet_fini = False
+                self.trajet_fini = True
                 
     def calcule_distance_fin_trajectoire(self, x1, y1, x2, y2):
 
