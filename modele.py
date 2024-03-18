@@ -12,11 +12,11 @@ class Modele:
 
         self.controle = controle
 
-        self.unite_base = 20
+        self.unite_base = 40
         self.troncons = []
         self.creeps = []
         self.objets_animer = []
-        self.CREEP_PAR_NIVEAU = 10  # SWITCH BACK A 20
+        self.CREEP_PAR_NIVEAU = 20  # SWITCH BACK A 20
         self.tours = []
         self.niveau = 0
         self.COOLDOWN_VAGUE = 5
