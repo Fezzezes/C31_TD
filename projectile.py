@@ -7,7 +7,7 @@ class Projectile:
 
         self.parent = parent
         self.type = parent.type
-        self.rayonImpact = 20 # variableee !!!!! ???
+        self.rayonImpact = 25 # variableee !!!!! ???
 
         # valeur à balancer
         self.taille = 20
@@ -72,7 +72,7 @@ class Projectile:
                 self.creep_cible.poison += 2 #variable de projectile
 
             else:
-                self.creep_cible.degat(1)  #variable de projectile
+                self.creep_cible.degat(2)  #variable de projectile
 
         # self.parent.parent.impact_projectile(self)
         # self.parent.modele.projectiles.remove(self)

@@ -11,6 +11,7 @@ class Modele:
     def __init__(self, controle):
         self.controle = controle
         self.unite_base = 40
+        self.vie=20
         self.troncons = []
         self.creeps = []
         self.objets_animer = []

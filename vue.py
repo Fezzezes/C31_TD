@@ -173,7 +173,7 @@ class Vue:
 
         frame_ressource.place(x=960, y=5)
 
-        label_vie = Label(frame_ressource, text="vie",
+        label_vie = Label(frame_ressource, text=self.modele.vie,
                             font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
 
         label_argent = Label(frame_ressource, text="argent",
