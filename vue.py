@@ -230,10 +230,11 @@ class Vue:
 
     def construire_tour(self, type: str):
         print(type)
-        self.dict_interfaces["c_jeu"].bind("<Motion>",
-                                           self.afficher_tour_temporaire)
-        self.dict_interfaces["c_jeu"].bind("<Button-1>",
-                                           lambda event, t=type: self.desactiver_tour_temporaire(event, t))
+        if self.controle.verifier_argent(type):
+            self.dict_interfaces["c_jeu"].bind("<Motion>",
+                                               self.afficher_tour_temporaire)
+            self.dict_interfaces["c_jeu"].bind("<Button-1>",
+                                               lambda event, t=type: self.desactiver_tour_temporaire(event, t))
 
     def desactiver_tour_temporaire(self, evt, type: str) -> None:
         print(type)
@@ -243,8 +244,8 @@ class Vue:
 
     def retirer_tour_temporaire(self, evt, type: str) -> None:
         # Attention, si la taille de la tour change il faudra changer ici.
-        x1, y1, x2, y2 = (evt.x, evt.y, (evt.x + self.modele.unite_base),
-                          (evt.y + self.modele.unite_base))
+        x1, y1, x2, y2 = (evt.x, evt.y, (evt.x + self.modele.unite_base / 2),
+                          (evt.y + self.modele.unite_base / 2 ))
         item_overlap = self.dict_interfaces["c_jeu"].find_overlapping(x1, y1,
                                                                       x2, y2)
         for item in item_overlap:

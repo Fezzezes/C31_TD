@@ -9,9 +9,7 @@ from time import sleep
 
 class Modele:
     def __init__(self, controle):
-
         self.controle = controle
-
         self.unite_base = 40
         self.troncons = []
         self.creeps = []
@@ -23,8 +21,66 @@ class Modele:
         self.argent = 3
         self.ARGENT_PAR_NIVEAU = 100
         self.creepCreer = 0
-
         self.liste_tours = []
+        self.stats_tours = {
+            "projectile": {
+                "prix_base": 100,
+                "couleur": "black",
+                "cooldown_base": 10,
+                "range_detection": 100,
+                "puissance": 2,
+                "ameliorations": {
+                    "2" : {
+                        "cout": 50,
+                        "cooldown": 5,
+                        "puissance": 5
+                    },
+                    "3" : {
+                        "cout": 50,
+                        "cooldown": 2,
+                        "puissance": 7
+                    },
+                }
+            },
+            "éclair": {
+                "prix_base": 100,
+                "couleur": "yellow",
+                "cooldown_base": 10,
+                "range_detection": 100,
+                "puissance": 2,
+                "ameliorations": {
+                    "2": {
+                        "cout": 50,
+                        "cooldown": 5,
+                        "puissance": 5
+                    },
+                    "3": {
+                        "cout": 50,
+                        "cooldown": 2,
+                        "puissance": 7
+                    },
+                }
+            },
+            "poison": {
+                "prix_base": 100,
+                "couleur": "purple",
+                "cooldown_base": 10,
+                "range_detection": 100,
+                "puissance": 2,
+                "ameliorations": {
+                    "2": {
+                        "cout": 50,
+                        "cooldown": 5,
+                        "puissance": 5
+                    },
+                    "3": {
+                        "cout": 50,
+                        "cooldown": 2,
+                        "puissance": 7
+                    },
+                }
+            }
+        }
 
     def creer_troncons(self):
         ub = self.unite_base  # x, y, largeur, hauteur, maxX,minX,maxY,minY):
@@ -118,10 +174,8 @@ class Modele:
             if isinstance(o, Projectile) and o.trajet_fini:
                 self.objets_animer.remove(o)
 
-
-
     def creer_tour(self, posX: int, posY: int, type: str) -> tuple[int, Tour]:
-        tour = Tour(self, posX, posY, type)
+        tour = Tour(self, posX, posY, type, self.stats_tours[type])
         self.liste_tours.append(tour)
         return len(self.liste_tours) - 1, tour
 
@@ -161,7 +215,7 @@ class Modele:
         # for creep in range(self.CREEP_PAR_NIVEAU):
         #     c = Creep(self)
         #     self.creeps.append(c)
-            # self.objets_animer.append(c)
+        # self.objets_animer.append(c)
 
         self.controle.animer_jeu()  # -> c'est lancer_vague qui a cette méthode
 
@@ -179,5 +233,11 @@ class Modele:
         c = Creep(self)
         self.creeps.append(c)
         self.objets_animer.append(c)
-        self.creepCreer+=1
+        self.creepCreer += 1
+
+    def verifier_argent(self, type: str) -> bool:
+        if self.argent >= self.stats_tours[type]["prix_base"]:
+            return True
+        else:
+            return False
 

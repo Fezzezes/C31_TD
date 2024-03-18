@@ -43,7 +43,8 @@ class Controleur:
 
             self.vue.root.after(50, self.animer_jeu)
 
-
+    def verifier_argent(self, type: str) -> bool:
+        return self.modele.verifier_argent(type)
 
     def creer_tour(self, posX: int, posY: int, type: str) -> None:
         index, tour = self.modele.creer_tour(posX, posY, type)
