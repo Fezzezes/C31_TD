@@ -25,7 +25,6 @@ class Tour:
         self.cooldown = 0
         self.detecte_un_creep = False
 
-        #print("INFO :", self.prix_base, self.range_detection, self.couleur, self.cooldown_base)
 
     def detecter_creep(self):
         # pour chaque creep du modele
