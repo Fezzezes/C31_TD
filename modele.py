@@ -141,15 +141,6 @@ class Modele:
         del self.creeps[index]
         del self.objets_animer[indexObject]
 
-    def timer(self):
-        start = time.time()
-
-        while self.start:
-            currentTime = time.time()
-            if currentTime - start >= 5:
-                print("time's up")
-                self.start = False
-        pass
 
     def lancer_vague(self):
         # for creep in range(self.CREEP_PAR_NIVEAU):
