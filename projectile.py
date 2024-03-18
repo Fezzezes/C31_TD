@@ -45,7 +45,7 @@ class Projectile:
             if dist <= self.speed / 3 or dist > self.parent.range_detection:
                 self.posX, self.posY = self.cibleX, self.cibleY
                 self.trajet_fini = True
-
+                
     def calcule_distance_fin_trajectoire(self, x1, y1, x2, y2):
 
         dx = (x2 - x1) ** 2  # strip abs FAIT
