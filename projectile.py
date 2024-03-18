@@ -10,7 +10,7 @@ class Projectile:
         # valeur à balancer
         self.taille = 20
         self.couleur = "yellow"
-        self.speed = 100
+        self.speed = 0
 
         # position de départ
         self.posX = parent.centreX
@@ -29,6 +29,7 @@ class Projectile:
     def trouver_cible(self):
         # trouve l'angle vers la cible
         self.angle = hp.calcAngle(self.posX, self.posY, self.cibleX, self.cibleY)
+        # self.speed =
 
     def deplacer(self):
         # deplace vers la cible
@@ -44,7 +45,7 @@ class Projectile:
             print("fin de la trajectoire?", dist, "<= ", self.speed / 3, " ? ", (dist <= self.speed / 4))
             if dist <= self.speed / 3 or dist > self.parent.range_detection:
                 self.posX, self.posY = self.cibleX, self.cibleY
-                self.trajet_fini = True
+                self.trajet_fini = False
                 
     def calcule_distance_fin_trajectoire(self, x1, y1, x2, y2):
 

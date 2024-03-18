@@ -48,10 +48,10 @@ class Vue:
 
         frame_menu.pack()
         self.dict_interfaces.update({"f_menu": frame_menu})
-        # self.creer_frame_vague()
+        self.creer_frame_vague()
         self.creer_frame_construction()
         self.creer_frame_amelioration()
-        # self.creer_frame_ressource()
+        self.creer_frame_ressource()
 
     def creer_frame_construction(self):
 
@@ -59,7 +59,7 @@ class Vue:
         frame_construction = Frame(self.dict_interfaces["f_menu"],
                                    width=ub * 12,
                                    height=ub * 4, bd=2,
-                                 highlightthickness=2, relief="sunken", bg="sea green")
+                                   highlightthickness=2, relief="sunken", bg="sea green")
 
         frame_construction.place(x=10 * ub, y=5)
 
@@ -67,7 +67,7 @@ class Vue:
                                    text="tour à projectile",
                                    font=("Arial", 14,), bg="RoyalBlue4",
                                    padx=10, pady=5,
-                                   wraplength=ub * 2,fg="white",
+                                   wraplength=ub * 2, fg="white",
                                    command=lambda: self.construire_tour(
                                        "projectile"))
         bouton_eclair = Button(frame_construction, text="tour à éclair",
@@ -144,6 +144,49 @@ class Vue:
         # frame_amelioration.place(x=6 * ub, y=5)
         pass
 
+    def creer_frame_vague(self):
+        frame_vague = Frame(self.dict_interfaces["f_menu"], width=self.modele.unite_base * 4,
+                            height=self.modele.unite_base * 4, bd=2,
+                                   highlightthickness=2, relief="sunken", bg="sea green")
+
+        frame_vague.place(x=40, y=5)
+
+        label_timer = Label(frame_vague, text="timer",
+                            font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
+
+        label_num_vague = Label(frame_vague, text="vague",
+                                font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5)
+
+        # self.canvas_vague.place(relx=0, rely=0, anchor="nw", relwidth=1.0, relheight=1)
+        label_timer.place(relx=0, rely=0, anchor="nw", relwidth=1.0, relheight=0.5)
+        label_num_vague.place(relx=0, rely=0.5, anchor="nw", relwidth=1.0, relheight=0.5)
+
+        self.dict_interfaces.update({"f_vague": frame_vague})
+        self.dict_interfaces.update({"l_timer": label_timer})
+        self.dict_interfaces.update({"l_numvague": label_num_vague.place})
+        pass
+
+    def creer_frame_ressource(self):
+        frame_ressource = Frame(self.dict_interfaces["f_menu"], width=self.modele.unite_base * 5,
+                                      height=self.modele.unite_base * 4, bd=2,
+                                   highlightthickness=2, relief="sunken", bg="sea green")
+
+        frame_ressource.place(x=960, y=5)
+
+        label_vie = Label(frame_ressource, text="vie",
+                            font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
+
+        label_argent = Label(frame_ressource, text="argent",
+                                font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5)
+
+        label_vie.place(relx=0, rely=0, anchor="nw", relwidth=1.0, relheight=0.5)
+        label_argent.place(relx=0, rely=0.75, anchor="nw", relwidth=1.0, relheight=0.25)
+
+        self.dict_interfaces.update({"l_vie": label_vie})
+        self.dict_interfaces.update({"f_argent": label_argent})
+        self.dict_interfaces.update({"f_ressource": frame_ressource})
+        pass
+
     def afficher_troncons(self):
         jeu = self.dict_interfaces["c_jeu"]
         for t in self.modele.troncons:
@@ -154,8 +197,6 @@ class Vue:
                 jeu.create_rectangle(t.posX, t.posY, (t.posX + t.largeur), (t.posY + t.hauteur),
                                      tags=("troncon", "permanent"),
                                      fill="gold", outline='')
-
-
 
     def animer_jeu(self):
         jeu = self.dict_interfaces["c_jeu"]
@@ -198,16 +239,16 @@ class Vue:
                             fill=p.couleur, tags=("projectile", p.posX, p.posY))
         elif p.type == "éclair":
             jeu.create_line(p.posX, p.posY, p.cibleX, p.cibleY, fill='yellow', width=6,
-                                            tags=("projectile", p.posX, p.posY))
+                            tags=("projectile", p.posX, p.posY))
 
         elif p.type == "laser":
             jeu.create_oval(p.posX, p.posY,
-                                            p.posX + p.taille, p.posY + p.taille,
-                                            fill=p.couleur, tags=("projectile", p.posX, p.posY))
+                            p.posX + p.taille, p.posY + p.taille,
+                            fill=p.couleur, tags=("projectile", p.posX, p.posY))
         elif p.type == "poison":
             jeu.create_oval(p.posX, p.posY,
-                                            p.posX + p.taille, p.posY + p.taille,
-                                            fill="green", tags=("projectile", p.posX, p.posY))
+                            p.posX + p.taille, p.posY + p.taille,
+                            fill="green", tags=("projectile", p.posX, p.posY))
         pass
 
     def dessiner_tour(self, index: str, tour: Tour):
@@ -286,8 +327,6 @@ class Vue:
         self.dict_interfaces[show].place(x=6 * self.modele.unite_base, y=5)
         pass
 
-
-
     # def test_projectile(self):
     #     print("test projectile")
     #     jeu = self.dict_interfaces["c_jeu"]
@@ -297,10 +336,10 @@ class Vue:
     #
     #     bouton_projectile.place(relx=0.1, rely=0.8, anchor="center", relheight=0.1, relwidth=0.1)
 
-    def test_tour_et_projectile(self):
-        self.test_tour_detection()
-        # self.test_projectile()
-        pass
+    # def test_tour_et_projectile(self):
+    #     self.test_tour_detection()
+    #     # self.test_projectile()
+    #     pass
 
     # def creer_projectile(self):
     #     print(self.modele.creeps)
