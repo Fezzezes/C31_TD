@@ -17,7 +17,6 @@ class Modele:
         self.creeps = []
         self.objets_animer = []
         self.CREEP_PAR_NIVEAU = 20  # SWITCH BACK A 20
-        self.tours = []
         self.niveau = 0
         self.COOLDOWN_VAGUE = 5
         self.argent = 3
@@ -111,14 +110,21 @@ class Modele:
                     16 * ub))
         pass
 
+    def cliquerTour(self, tour):
+
+
+
+        print("tour cliquer?")
+
+
+
+
     def deplacer_objets(self):
         # deplace tous les objets du canvas n'ayant pas le tag static
         for o in self.objets_animer:
             o.deplacer()
             if isinstance(o, Projectile) and o.trajet_fini:
                 self.objets_animer.remove(o)
-
-
 
     def creer_tour(self, posX: int, posY: int, type: str) -> tuple[int, Tour]:
         tour = Tour(self, posX, posY, type)
@@ -138,11 +144,15 @@ class Modele:
             temps_sec -= 1
 
     def mourir(self, creep):
-        index = self.creeps.index(creep)
-        indexObject = self.objets_animer.index(creep)
-        self.argent += 5
-        del self.creeps[index]
-        del self.objets_animer[indexObject]
+        try:
+            index = self.creeps.index(creep)
+            indexObject = self.objets_animer.index(creep)
+            del self.creeps[index]
+            del self.objets_animer[indexObject]
+            print(self.argent)
+        except ValueError:
+            print("creep mort :D")
+
 
 
     def impact_projectile(self, projectile):
@@ -157,13 +167,12 @@ class Modele:
                 print("time's up")
                 self.start = False
         pass
-n
 
     def lancer_vague(self):
         # for creep in range(self.CREEP_PAR_NIVEAU):
         #     c = Creep(self)
         #     self.creeps.append(c)
-            # self.objets_animer.append(c)
+        # self.objets_animer.append(c)
 
         self.controle.animer_jeu()  # -> c'est lancer_vague qui a cette méthode
 
@@ -181,5 +190,4 @@ n
         c = Creep(self)
         self.creeps.append(c)
         self.objets_animer.append(c)
-        self.creepCreer+=1
-
+        self.creepCreer += 1

@@ -17,7 +17,7 @@ class Tour:
         self.rayon = self.calculer_rayon(self.range_detection)
         self.type = type
         self.niveau = 1
-        self.cooldown_base = 2
+        self.cooldown_base = 10
         self.cooldown = 0
         self.detecte_un_creep = False
 
@@ -35,7 +35,7 @@ class Tour:
 
     def detecter_creep(self):
         # pour chaque creep du modele
-        print(self.parent.creeps)
+
         for c in self.parent.creeps:
             if c.isAlive:
                 distX = (self.centreX - self.calculer_point_median(c.posX)) ** 2
