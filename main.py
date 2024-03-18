@@ -41,6 +41,7 @@ class Controleur:
             if self.modele.creepCreer < self.modele.CREEP_PAR_NIVEAU and self.compteur % 20 == 1:  # change 20 pour ralenir ou accelerer
                 self.modele.ajouterCreep()
 
+            print(self.modele.argent)
             self.vue.root.after(50, self.animer_jeu)
 
 

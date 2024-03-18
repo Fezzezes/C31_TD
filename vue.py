@@ -222,6 +222,8 @@ class Vue:
         for t in self.modele.liste_tours:
             self.dessine_range(t)
 
+
+
     def dessine_creep(self, creep):
         ub = self.modele.unite_base
         jeu = self.dict_interfaces["c_jeu"]
@@ -269,17 +271,16 @@ class Vue:
         self.dict_interfaces["c_jeu"].create_oval(x1, y1, x2, y2, outline=color, width=4, tags=("range",))
 
     def construire_tour(self, type: str):
-        print(type)
         self.dict_interfaces["c_jeu"].bind("<Motion>",
                                            self.afficher_tour_temporaire)
         self.dict_interfaces["c_jeu"].bind("<Button-1>",
                                            lambda event, t=type: self.desactiver_tour_temporaire(event, t))
 
     def desactiver_tour_temporaire(self, evt, type: str) -> None:
-        print(type)
         self.dict_interfaces["c_jeu"].unbind("<Motion>")
         self.dict_interfaces["c_jeu"].unbind("<Button-1>")
         self.retirer_tour_temporaire(evt, type)
+
 
     def retirer_tour_temporaire(self, evt, type: str) -> None:
         # Attention, si la taille de la tour change il faudra changer ici.
@@ -296,7 +297,7 @@ class Vue:
         self.dict_interfaces["c_jeu"].delete("temporaire")
         self.dict_interfaces["c_jeu"].create_rectangle(evt.x, evt.y,
                                                        evt.x + 20, evt.y + 20,
-                                                       fill="red",
+                                                       fill="blue",
                                                        tags="temporaire")
 
     def upgrade(self):

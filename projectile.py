@@ -7,6 +7,8 @@ class Projectile:
 
         self.parent = parent
         self.type = parent.type
+        self.rayonImpact = 20 # variableee !!!!! ???
+
         # valeur à balancer
         self.taille = 20
         self.couleur = "yellow"
@@ -25,7 +27,6 @@ class Projectile:
         self.angle = None
         self.dist_precedente = hp.calcDistance(self.posX, self.posY, self.cibleX, self.cibleY)
         self.trajet_fini = False
-
 
     def trouver_cible(self):
         # trouve l'angle vers la cible
@@ -46,7 +47,8 @@ class Projectile:
             if dist <= 0 or dist > self.parent.range_detection:
                 self.posX, self.posY = self.cibleX, self.cibleY
                 self.trajet_fini = True
-                
+                self.impact()
+
     def calcule_distance_fin_trajectoire(self, x1, y1, x2, y2):
 
         dx = (x2 - x1) ** 2  # strip abs FAIT
@@ -61,7 +63,18 @@ class Projectile:
         return distance
 
     def impact(self):
-        print("Impacte")
-        self.parent.parent.impact_projectile(self)
+        distance= hp.calcDistance(self.cibleX,self.cibleY, self.creep_cible.posX,self.creep_cible.posY)
+        #print("distance enrte impact et creep", distance)
+
+        if distance <= self.rayonImpact:
+       #     print("distance enrte impact et creep",distance)
+            if self.type == "poison":
+                self.creep_cible.poison += 2 #variable de projectile
+
+            else:
+                self.creep_cible.degat(1)  #variable de projectile
+
+        # self.parent.parent.impact_projectile(self)
         # self.parent.modele.projectiles.remove(self)
-        pass
+
+

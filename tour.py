@@ -24,6 +24,7 @@ class Tour:
 
     def detecter_creep(self):
         # pour chaque creep du modele
+
         for c in self.parent.creeps:
             if c.isAlive:
                 distX = (self.centreX - hp.calculer_point_median(c.posX, c.taille)) ** 2

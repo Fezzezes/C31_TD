@@ -1,5 +1,6 @@
 import math
 import random
+from helper import Helper as hp
 
 
 class Creep:
@@ -14,8 +15,16 @@ class Creep:
         self.cibleX, self.cibleY = self.trouver_cible()
         self.posY = 0
         self.posX = self.cibleX
-        self.vitesse = 5
+        self.vitesse = 6
+        self.vie = 10
+        self.poison=0
+        self.acide=0
 
+    def degat(self, degat):
+        self.vie -= degat
+        if self.vie <= 0:
+            self.parent.argent += 5
+            self.parent.mourir(self)
 
     def trouver_cible(self):
         newCible = self.t.cibleX, self.t.cibleY
@@ -24,9 +33,9 @@ class Creep:
     def deplacement(self):
         dirX = self.cibleX - self.posX
         dirY = self.cibleY - self.posY
-        distance = math.sqrt(dirX ** 2 + dirY ** 2)
+        distance = hp.calcDistance(self.posX,self.posY, self.cibleX,self.cibleY)
 
-        if distance <= 2:
+        if distance <= self.vitesse:
             self.currentT = self.currentT + 1
             try:
                 self.t = self.parent.troncons[self.currentT]
@@ -49,4 +58,3 @@ class Creep:
 
     def deplacer(self):
         self.deplacement()
-
