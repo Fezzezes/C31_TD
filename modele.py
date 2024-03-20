@@ -15,10 +15,10 @@ class Modele:
         self.troncons = []
         self.creeps = []
         self.objets_animer = []
-        self.CREEP_PAR_NIVEAU = 3
+        self.CREEP_PAR_NIVEAU = 20
         self.niveau = 0  # correspond à la vague
         self.COOLDOWN_VAGUE = 5
-        self.vie = 5
+        self.vie = 20
         self.argent = 0
         self.ARGENT_PAR_NIVEAU = 250  # switch back a 100
 
@@ -61,19 +61,14 @@ class Modele:
                     2: {
                         "cout": 50,
                         "cooldown": 0,
-                        "puissance": 1
+                        "puissance": 1,
+                        "couleur": "goldenrod"
                     },
                     3: {
                         "cout": 50,
                         "cooldown": 0,
                         "puissance": 2,
-                        "couleur": "goldenrod"
-                    },
-                    3: {
-                        "cout": 50,
-                        "cooldown": 2,
-                        "couleur": "dark goldenrod",
-                        "puissance": 7
+                        "couleur": "dark goldenrod"
                     },
                 }
             },
