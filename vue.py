@@ -142,6 +142,8 @@ class Vue:
                                padx=10, pady=5,
                                wraplength=ub * 2,
                                command=self.test_toggle_construction)
+        bouton_quitter.place(relx=0.9, rely=0.1, anchor="center", relheight=0.2,
+                         relwidth=0.2)
 
         bouton_upgrade.place(relx=0.5, rely=0.5, anchor="center",
                              relheight=0.5, relwidth=0.2)
