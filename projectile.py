@@ -7,7 +7,7 @@ class Projectile:
 
         self.parent = parent
         self.type = parent.type
-        self.rayonImpact = 25 # variableee !!!!! ???
+        self.rayonImpact = 20 # variableee !!!!! ???
 
         # valeur à balancer
         self.taille = 20
@@ -64,15 +64,18 @@ class Projectile:
 
     def impact(self):
         distance= hp.calcDistance(self.cibleX,self.cibleY, self.creep_cible.posX,self.creep_cible.posY)
-        #print("distance enrte impact et creep", distance)
+        print("distance enrte impact et creep", distance)
 
+        print(self.rayonImpact)
+        print(self.parent.puissance)
         if distance <= self.rayonImpact:
+            print(self.rayonImpact)
        #     print("distance enrte impact et creep",distance)
             if self.type == "poison":
-                self.creep_cible.poison += 2 #variable de projectile
+                self.creep_cible.poison += self.parent.puissance#variable de projectile
 
             else:
-                self.creep_cible.degat(2)  #variable de projectile
+                self.creep_cible.degat(self.parent.puissance)  #variable de projectile
 
         # self.parent.parent.impact_projectile(self)
         # self.parent.modele.projectiles.remove(self)

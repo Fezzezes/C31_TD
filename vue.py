@@ -267,10 +267,11 @@ class Vue:
         pass
 
     def dessiner_tour(self, index: str, tour: Tour):
+        print("update")
         tag = "id_" + index
         t=self.dict_interfaces["c_jeu"].create_rectangle(tour.posX_1, tour.posY_1,
                                                        tour.posX_2, tour.posY_2,
-                                                       fill="pink",
+                                                       fill=tour.couleur,
                                                        tags=(tag, "permanent"), outline='')
         self.dict_interfaces["c_jeu"].tag_bind(t,"<Button-1>", lambda t, test=tour : self.cliquerTour(t,test))
 
@@ -347,12 +348,14 @@ class Vue:
     def ameliorerTour(self):  # upgrapde_btn
         self.controle.ameliorerTour(self.tourCliquer)
 
+
     def init_label(self, argent: str, vie: str, vague: str) -> None:
         self.valeur_argent.set("ARGENT\n" + argent)
         self.valeur_vie.set("VIES RESTANTES\n" + vie)
         self.valeur_vague.set("VAGUE\n" + vague)
 
-
+    def updateArgent(self,argent):
+        self.dict_interfaces["f_argent"].config(text=str(argent))
     # def test_projectile(self):
     #     print("test projectile")
     #     jeu = self.dict_interfaces["c_jeu"]

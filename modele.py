@@ -1,3 +1,4 @@
+import math
 import time
 
 from creep import Creep
@@ -19,27 +20,30 @@ class Modele:
         self.niveau = 0  # correspond à la vague
         self.COOLDOWN_VAGUE = 5
         self.vie = 20
-        self.ARGENT_PAR_NIVEAU = 100 #switch back a 100
-        self.argent= self.ARGENT_PAR_NIVEAU
+        self.argent = 0
+        self.ARGENT_PAR_NIVEAU = 250  # switch back a 100
+
         self.creepCreer = 0
         self.liste_tours = []
         self.stats_tours = {
             "projectile": {
                 "prix_base": 100,
-                "couleur": "black",
+                "couleur": "gray",
                 "cooldown_base": 10,
                 "range_detection": 100,
-                "puissance": 2,
+                "puissance": 3,
                 "ameliorations": {
                     2: {
                         "cout": 50,
                         "cooldown": 5,
-                        "puissance": 5
+                        "puissance": 5,
+                        "couleur": "dim gray",
                     },
                     3: {
                         "cout": 50,
                         "cooldown": 2,
-                        "puissance": 7
+                        "puissance": 7,
+                        "couleur": "black",
                     },
                 }
             },
@@ -48,23 +52,25 @@ class Modele:
                 "couleur": "yellow",
                 "cooldown_base": 10,
                 "range_detection": 100,
-                "puissance": 2,
+                "puissance": 3,
                 "ameliorations": {
                     2: {
                         "cout": 50,
                         "cooldown": 5,
+                        "couleur": "goldenrod",
                         "puissance": 5
                     },
                     3: {
                         "cout": 50,
                         "cooldown": 2,
+                        "couleur": "dark goldenrod",
                         "puissance": 7
                     },
                 }
             },
             "poison": {
                 "prix_base": 100,
-                "couleur": "purple",
+                "couleur": "MediumPurple3",
                 "cooldown_base": 10,
                 "range_detection": 100,
                 "puissance": 2,
@@ -72,11 +78,13 @@ class Modele:
                     2: {
                         "cout": 50,
                         "cooldown": 5,
+                        "couleur": "purple1",
                         "puissance": 5
                     },
                     3: {
                         "cout": 50,
                         "cooldown": 2,
+                        "couleur": "purple4",
                         "puissance": 7
                     },
                 }
@@ -87,20 +95,19 @@ class Modele:
         # {'cout': 50, 'cooldown': 5, 'puissance': 5}
         print(self.argent)
         print(t.niveau)
-        next_level= t.niveau+1
-        if next_level<=3:
+        next_level = t.niveau + 1
+        if next_level <= 3:
             stats = t.ameliorations[next_level]
             if stats['cout'] <= self.argent:
-                    # print(t.puissance) pas de puissance???
-                    t.cooldown_base = stats['cooldown']
-                    t.puissance = stats['puissance']
-                    self.argent -= stats['cout']
-                    t.couleur = 'salmon4'
-                    t.niveau += 1
+                # print(t.puissance) pas de puissance???
+                t.cooldown_base = stats['cooldown']
+                t.puissance = stats['puissance']
+                self.argent -= stats['cout']
+                t.couleur = stats['couleur']
+                t.niveau += 1
+                self.controle.updateTour(t)
             else:
                 print("MANQUE DE FONDS")
-
-
 
     def creer_troncons(self):
         ub = self.unite_base  # x, y, largeur, hauteur, maxX,minX,maxY,minY):
@@ -187,9 +194,6 @@ class Modele:
                     16 * ub))
         pass
 
-    def cliquerTour(self, tour):
-        print("tour cliquer?")
-
     def deplacer_objets(self):
         # deplace tous les objets du canvas n'ayant pas le tag static
         for o in self.objets_animer:
@@ -206,8 +210,6 @@ class Modele:
     def init_vague(self) -> None:
         self.niveau += 1
         self.argent += self.ARGENT_PAR_NIVEAU
-
-        self.start = True
         # self.lancer_vague()
 
     def compte_rebours(self, temps_sec: int) -> None:
@@ -242,9 +244,8 @@ class Modele:
                 self.start = False
         pass
 
-
     def tempsPasse(self, timerStart):
-        tempecoule= time.time()-timerStart
+        tempecoule = time.time() - timerStart
         return tempecoule
 
     def lancer_vague(self):
@@ -258,13 +259,14 @@ class Modele:
         self.objets_animer.append(Projectile(tour, creep))
         pass
 
-    def ajouterCreep(self):
-        c = Creep(self)
-        self.creeps.append(c)
-        self.objets_animer.append(c)
-        self.creepCreer += 1
+    def ajouterCreep(self, test):
+        if self.creepCreer < self.CREEP_PAR_NIVEAU and test % 30 == 1:
+            c = Creep(self)
+            self.creeps.append(c)
+            self.objets_animer.append(c)
+            self.creepCreer += 1
 
-    def tuer_creep(self, creep : Creep):
+    def tuer_creep(self, creep: Creep):
         self.argent += 20
         self.controle.maj_argent()
         self.retirer_creep(creep)
