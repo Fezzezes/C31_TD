@@ -18,8 +18,8 @@ class Modele:
         self.CREEP_PAR_NIVEAU = 20  # SWITCH BACK A 20
         self.niveau = 0
         self.COOLDOWN_VAGUE = 5
-        self.argent = 3
         self.ARGENT_PAR_NIVEAU = 100 #switch back a 100
+        self.argent= self.ARGENT_PAR_NIVEAU
         self.creepCreer = 0
         self.liste_tours = []
         self.stats_tours = {
@@ -233,21 +233,19 @@ class Modele:
                 self.start = False
         pass
 
-    def lancer_vague(self):
-        # for creep in range(self.CREEP_PAR_NIVEAU):
-        #     c = Creep(self)
-        #     self.creeps.append(c)
-        # self.objets_animer.append(c)
 
+    def tempsPasse(self, timerStart):
+        tempecoule= time.time()-timerStart
+        return tempecoule
+
+    def lancer_vague(self):
         self.controle.animer_jeu()  # -> c'est lancer_vague qui a cette méthode
 
     def detecter_creeps(self):
-        # loop au travers de chaque tour
         for tour in self.liste_tours:
             tour.detecter_creep()
 
     def creer_projectile(self, tour, creep):
-        print("création d'un projectile de type: ", tour.type)
         self.objets_animer.append(Projectile(tour, creep))
         pass
 

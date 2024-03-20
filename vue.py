@@ -189,7 +189,7 @@ class Vue:
         label_vie = Label(frame_ressource, text=self.modele.vie,
                           font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
 
-        label_argent = Label(frame_ressource, text="argent",
+        label_argent = Label(frame_ressource, text="$$$",
                              font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5)
 
         label_vie.place(relx=0, rely=0, anchor="nw", relwidth=1.0, relheight=0.5)
