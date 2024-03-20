@@ -126,7 +126,7 @@ class Vue:
                          relwidth=1)
 
         bouton_upgrade = Button(frame_amelioration, text="Upgrade",
-                                wraplength=ub * 2, command=self.upgrade)
+                                wraplength=ub * 2, command=self.cliquerTour)
         label_tour = Label(frame_amelioration, text=tour,
                            font=("Arial", 14), fg="blue", bg="gray", padx=10,
                            pady=5,
@@ -147,7 +147,7 @@ class Vue:
     def creer_frame_vague(self):
         frame_vague = Frame(self.dict_interfaces["f_menu"], width=self.modele.unite_base * 4,
                             height=self.modele.unite_base * 4, bd=2,
-                                   highlightthickness=2, relief="sunken", bg="sea green")
+                            highlightthickness=2, relief="sunken", bg="sea green")
 
         frame_vague.place(x=40, y=5)
 
@@ -168,16 +168,16 @@ class Vue:
 
     def creer_frame_ressource(self):
         frame_ressource = Frame(self.dict_interfaces["f_menu"], width=self.modele.unite_base * 5,
-                                      height=self.modele.unite_base * 4, bd=2,
-                                   highlightthickness=2, relief="sunken", bg="sea green")
+                                height=self.modele.unite_base * 4, bd=2,
+                                highlightthickness=2, relief="sunken", bg="sea green")
 
         frame_ressource.place(x=960, y=5)
 
         label_vie = Label(frame_ressource, text=self.modele.vie,
-                            font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
+                          font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
 
         label_argent = Label(frame_ressource, text="argent",
-                                font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5)
+                             font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5)
 
         label_vie.place(relx=0, rely=0, anchor="nw", relwidth=1.0, relheight=0.5)
         label_argent.place(relx=0, rely=0.75, anchor="nw", relwidth=1.0, relheight=0.25)
@@ -221,8 +221,6 @@ class Vue:
         # dessine la zone de dectection des tours
         for t in self.modele.liste_tours:
             self.dessine_range(t)
-
-
 
     def dessine_creep(self, creep):
         ub = self.modele.unite_base
@@ -277,16 +275,27 @@ class Vue:
             self.dict_interfaces["c_jeu"].bind("<Button-1>",
                                                lambda event, t=type: self.desactiver_tour_temporaire(event, t))
 
+    def cliquerTour(self):
+        self.dict_interfaces["c_jeu"].bind("<Button-1>",
+                                           lambda event: self.ameliorerTour(event))
+
+    def ameliorerTour(self, event):
+        x, y = event.x, event.y
+        for t in self.modele.liste_tours:
+            if t.posX_1 < x < t.posX_2 and t.posY_1 < y < t.posY_2:
+                print("TOUR CLIQUER", t)
+                self.modele.ameliorerTour(t)
+        self.dict_interfaces["c_jeu"].unbind("<Button-1>")
+
     def desactiver_tour_temporaire(self, evt, type: str) -> None:
         self.dict_interfaces["c_jeu"].unbind("<Motion>")
         self.dict_interfaces["c_jeu"].unbind("<Button-1>")
         self.retirer_tour_temporaire(evt, type)
 
-
     def retirer_tour_temporaire(self, evt, type: str) -> None:
         # Attention, si la taille de la tour change il faudra changer ici.
         x1, y1, x2, y2 = (evt.x, evt.y, (evt.x + self.modele.unite_base / 2),
-                          (evt.y + self.modele.unite_base / 2 ))
+                          (evt.y + self.modele.unite_base / 2))
         item_overlap = self.dict_interfaces["c_jeu"].find_overlapping(x1, y1,
                                                                       x2, y2)
         for item in item_overlap:
@@ -300,9 +309,6 @@ class Vue:
                                                        evt.x + 20, evt.y + 20,
                                                        fill="blue",
                                                        tags="temporaire")
-
-    def upgrade(self):
-        pass
 
     def split_string_amelioration(self, str_am):
         cout = str_am.split(";", 2)[0]
