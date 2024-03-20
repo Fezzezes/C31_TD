@@ -11,11 +11,20 @@ class Vue:
         self.modele = modele
         self.root = Tk()
         self.root.title("Tower Defense")
-        self.dict_amelioration = {"default": "***cout;***desc;****tour"}
+        self.dict_amelioration = {"default": "***cout;***desc;****tour",
+                                  "projectile1": "50;+Rapide\n+Power;Projectile 2",
+                                  "projectile2": "50;+Rapide\n+Power;Projectile 3",
+                                  "projectile3": "---;MAX;MAX",
+                                  "éclair1": "50;Laser\n-Power;Éclair 2",
+                                  "éclair2": "50;+Power;Éclair 3",
+                                  "éclair3": "---;MAX;MAX",
+                                  "poison1": "50;-Rapide\n+Poison;Poison 2",
+                                  "poison2": "50;-Rapide\n+Poison;Poison 3",
+                                  "poison3": "---;MAX;MAX"}
         ##creation  des interfaces graphiques
         self.dict_interfaces = {}
         self.creer_interfaces()
-        self.tourCliquer= None
+        self.tourCliquer = None
 
     def creer_interfaces(self):
         self.creer_frame_aire_jeu()
@@ -37,7 +46,6 @@ class Vue:
         # bouton_amelioration = Button(canvas_aire_jeu, text="amelioration",
         #                              font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5,
         #                              command=self.test_toggle_amelioration)
-
 
         # bouton_construction.place(relx=0.6, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
         # bouton_amelioration.place(relx=0.8, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
@@ -138,12 +146,12 @@ class Vue:
                          relwidth=0.2)
 
         bouton_quitter = Button(frame_amelioration, text=" X ",
-                               font=("Arial", 14), fg="white", bg="DarkOrchid4",
-                               padx=10, pady=5,
-                               wraplength=ub * 2,
-                               command=self.test_toggle_construction)
+                                font=("Arial", 14), fg="white", bg="DarkOrchid4",
+                                padx=10, pady=5,
+                                wraplength=ub * 2,
+                                command=self.test_toggle_construction)
         bouton_quitter.place(relx=0.9, rely=0.1, anchor="center", relheight=0.2,
-                         relwidth=0.2)
+                             relwidth=0.2)
 
         bouton_upgrade.place(relx=0.5, rely=0.5, anchor="center",
                              relheight=0.5, relwidth=0.2)
@@ -265,11 +273,11 @@ class Vue:
 
     def dessiner_tour(self, index: str, tour: Tour):
         tag = "id_" + index
-        t=self.dict_interfaces["c_jeu"].create_rectangle(tour.posX_1, tour.posY_1,
-                                                       tour.posX_2, tour.posY_2,
-                                                       fill="pink",
-                                                       tags=(tag, "permanent"), outline='')
-        self.dict_interfaces["c_jeu"].tag_bind(t,"<Button-1>", lambda t, test=tour : self.cliquerTour(t,test))
+        t = self.dict_interfaces["c_jeu"].create_rectangle(tour.posX_1, tour.posY_1,
+                                                           tour.posX_2, tour.posY_2,
+                                                           fill="pink",
+                                                           tags=(tag, "permanent"), outline='')
+        self.dict_interfaces["c_jeu"].tag_bind(t, "<Button-1>", lambda t, test=tour: self.cliquerTour(t, test))
 
     def dessine_range(self, tour):
 
@@ -288,7 +296,6 @@ class Vue:
                                                self.afficher_tour_temporaire)
             self.dict_interfaces["c_jeu"].bind("<Button-1>",
                                                lambda event, t=type: self.desactiver_tour_temporaire(event, t))
-
 
     def desactiver_tour_temporaire(self, evt, type: str) -> None:
         self.dict_interfaces["c_jeu"].unbind("<Motion>")
@@ -320,9 +327,8 @@ class Vue:
         print(cout)
         print(desc)
         print(tour)
-
         return [cout, desc, tour]
-        pass
+
 
     def test_toggle_construction(self):
         print("showing construction")
@@ -337,12 +343,25 @@ class Vue:
         self.dict_interfaces[show].place(x=6 * self.modele.unite_base, y=5)
         pass
 
-    def cliquerTour(self, event,t):  # toggle
+
+    def update_menu_amelioration(self, tour):
+        cle = tour.donner_cle_amelioration()
+        cout, desc, tour = self.split_string_amelioration(self.dict_amelioration[cle])
+        self.dict_interfaces["l_am_cout"].config(text=cout)
+        self.dict_interfaces["l_am_desc"].config(text=desc)
+        self.dict_interfaces["l_am_tour"].config(text=tour)
+        pass
+
+    def cliquerTour(self, event, t):  # toggle
+        self.update_menu_amelioration(t)
         self.toggle_interface("f_construction", "f_amelioration")
+        # update la desc, le cout et le niveau de la tour
+
         self.tourCliquer = t
 
     def ameliorerTour(self):  # upgrapde_btn
         self.controle.ameliorerTour(self.tourCliquer)
+        self.update_menu_amelioration(self.tourCliquer)
 
     # def test_projectile(self):
     #     print("test projectile")

@@ -37,8 +37,8 @@ class Modele:
                     },
                     3: {
                         "cout": 50,
-                        "cooldown": 2,
-                        "puissance": 7
+                        "cooldown": 7,
+                        "puissance": 9
                     },
                 }
             },
@@ -51,13 +51,13 @@ class Modele:
                 "ameliorations": {
                     2: {
                         "cout": 50,
-                        "cooldown": 5,
-                        "puissance": 5
+                        "cooldown": 0,
+                        "puissance": 1
                     },
                     3: {
                         "cout": 50,
-                        "cooldown": 2,
-                        "puissance": 7
+                        "cooldown": 0,
+                        "puissance": 2
                     },
                 }
             },
