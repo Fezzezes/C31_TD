@@ -43,18 +43,18 @@ class Vue:
         canvas_aire_jeu.pack()
         self.dict_interfaces.update({"c_jeu": canvas_aire_jeu})
 
-        # bouton_construction = Button(canvas_aire_jeu, text="construction",
+        # bouton_test_toggle1 = Button(canvas_aire_jeu, text="show menu",
         #                              font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5,
-        #                              command=self.test_toggle_construction)
+        #                              command=self.toggle_menu)
         #
-        # bouton_amelioration = Button(canvas_aire_jeu, text="amelioration",
+        # bouton_test_toggle2 = Button(canvas_aire_jeu, text="show gameover",
         #                              font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5,
-        #                              command=self.test_toggle_amelioration)
-
-        # bouton_construction.place(relx=0.6, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
-        # bouton_amelioration.place(relx=0.8, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
-        # self.dict_interfaces.update({"b_construction": bouton_construction})
-        # self.dict_interfaces.update({"b_amelioration": bouton_amelioration})
+        #                              command=self.toggle_gameover)
+        #
+        # bouton_test_toggle1.place(relx=0.6, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
+        # bouton_test_toggle2.place(relx=0.8, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
+        # self.dict_interfaces.update({"b_construction": bouton_test_toggle1})
+        # self.dict_interfaces.update({"b_amelioration": bouton_test_toggle2})
 
     def creer_frame_menu(self):
         frame_menu = Frame(self.root, width=self.modele.unite_base * 32,
@@ -66,6 +66,7 @@ class Vue:
         self.creer_frame_construction()
         self.creer_frame_amelioration()
         self.creer_frame_ressource()
+        self.creer_frame_gameover()
 
     def creer_frame_construction(self):
 
@@ -211,6 +212,17 @@ class Vue:
         self.dict_interfaces.update({"f_ressource": frame_ressource})
         pass
 
+    def creer_frame_gameover(self):
+        frame_gameover= Frame(self.root, width=self.modele.unite_base * 32,
+                           height=self.modele.unite_base * 5, bg="light slate gray")
+
+        label_texte_fin = Label(frame_gameover, text="GAME OVER",
+                             font=("Arial", 40), fg="black", bg="light slate gray", padx=10, pady=5)
+        label_texte_fin.place(relx=0, rely=0, anchor="nw", relwidth=1, relheight=1)
+
+        self.dict_interfaces.update({"f_gameover": frame_gameover})
+        pass
+
     def afficher_troncons(self):
         jeu = self.dict_interfaces["c_jeu"]
         for t in self.modele.troncons:
@@ -340,6 +352,17 @@ class Vue:
     def toggle_interface(self, remove, show):
         self.dict_interfaces[remove].place_forget()
         self.dict_interfaces[show].place(x=10 * self.modele.unite_base, y=5)
+        pass
+
+    def toggle_gameover(self):
+        self.toggle_menu_gameover("f_menu", "f_gameover")
+
+    def toggle_menu(self):
+        self.toggle_menu_gameover("f_gameover", "f_menu")
+
+    def toggle_menu_gameover(self, remove, show):
+        self.dict_interfaces[remove].pack_forget()
+        self.dict_interfaces[show].pack()
         pass
 
     def update_menu_amelioration(self, tour):
