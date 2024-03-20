@@ -255,8 +255,8 @@ class Vue:
                 self.dessine_projectile(o)
 
         # dessine la zone de dectection des tours
-        for t in self.modele.liste_tours:
-            self.dessine_range(t)
+        # for t in self.modele.liste_tours:
+        #     self.dessine_range(t)
 
     def dessine_creep(self, creep):
         ub = self.modele.unite_base

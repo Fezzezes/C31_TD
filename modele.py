@@ -12,16 +12,20 @@ class Modele:
     def __init__(self, controle):
         self.controle = controle
         self.unite_base = 40
-        self.vie = 20
         self.troncons = []
         self.creeps = []
         self.objets_animer = []
-        self.CREEP_PAR_NIVEAU = 20
+        self.CREEP_PAR_NIVEAU = 3
         self.niveau = 0  # correspond à la vague
         self.COOLDOWN_VAGUE = 5
-        self.vie = 20
+        self.vie = 5
         self.argent = 0
         self.ARGENT_PAR_NIVEAU = 250  # switch back a 100
+
+        self.partie_active = True
+        self.niveau_terminer = False
+        self.creep_creation_terminer = False
+        self.tempsDebut = time.time()
 
         self.creepCreer = 0
         self.liste_tours = []
@@ -213,8 +217,13 @@ class Modele:
         return len(self.liste_tours) - 1, tour
 
     def init_vague(self) -> None:
+        self.niveau_terminer = False
+        self.creepCreer = 0
+        self.creep_creation_terminer = False
         self.niveau += 1
         self.argent += self.ARGENT_PAR_NIVEAU
+        self.tempsDebut = time.time()
+        self.tempsPasse(self.tempsDebut)
         # self.lancer_vague()
 
     def compte_rebours(self, temps_sec: int) -> None:
@@ -224,8 +233,12 @@ class Modele:
             temps_sec -= 1"""
 
     def atteindre_chateau(self) -> None:
-        self.vie -= 1
-        self.controle.maj_vie()
+        if self.vie - 1 > 0:
+            self.vie -= 1
+            self.controle.maj_vie()
+        else:
+            self.partie_active = False
+            self.controle.finir_partie()
 
     def retirer_creep(self, creep):
         try:
@@ -233,6 +246,8 @@ class Modele:
             indexObject = self.objets_animer.index(creep)
             del self.creeps[index]
             del self.objets_animer[indexObject]
+            if len(self.creeps) == 0 and self.creep_creation_terminer:
+                self.niveau_terminer = True
         except ValueError:
             print("creep mort :D")
 
@@ -270,6 +285,9 @@ class Modele:
             self.creeps.append(c)
             self.objets_animer.append(c)
             self.creepCreer += 1
+            if self.creepCreer == self.CREEP_PAR_NIVEAU:
+                self.creep_creation_terminer = True
+
 
     def tuer_creep(self, creep: Creep):
         self.argent += 20
@@ -281,3 +299,7 @@ class Modele:
             return True
         else:
             return False
+
+    def reset_objet_animer(self):
+        self.objets_animer.clear()
+        pass
