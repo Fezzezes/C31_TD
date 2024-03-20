@@ -11,6 +11,9 @@ class Vue:
         self.modele = modele
         self.root = Tk()
         self.root.title("Tower Defense")
+        self.valeur_argent = StringVar()
+        self.valeur_vie = StringVar()
+        self.valeur_vague = StringVar()
         self.dict_amelioration = {"default": "***cout;***desc;****tour"}
         ##creation  des interfaces graphiques
         self.dict_interfaces = {}
@@ -154,7 +157,7 @@ class Vue:
         label_timer = Label(frame_vague, text="timer",
                             font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
 
-        label_num_vague = Label(frame_vague, text="vague",
+        label_num_vague = Label(frame_vague, textvariable=self.valeur_vague,
                                 font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5)
 
         # self.canvas_vague.place(relx=0, rely=0, anchor="nw", relwidth=1.0, relheight=1)
@@ -173,10 +176,10 @@ class Vue:
 
         frame_ressource.place(x=960, y=5)
 
-        label_vie = Label(frame_ressource, text="vie",
+        label_vie = Label(frame_ressource, textvariable=self.valeur_vie,
                             font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
 
-        label_argent = Label(frame_ressource, text="argent",
+        label_argent = Label(frame_ressource, textvariable=self.valeur_argent,
                                 font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5)
 
         label_vie.place(relx=0, rely=0, anchor="nw", relwidth=1.0, relheight=0.5)
@@ -327,6 +330,11 @@ class Vue:
         self.dict_interfaces[remove].place_forget()
         self.dict_interfaces[show].place(x=6 * self.modele.unite_base, y=5)
         pass
+
+    def init_label(self, argent: str, vie: str, vague: str) -> None:
+        self.valeur_argent.set("ARGENT\n" + argent)
+        self.valeur_vie.set("VIES RESTANTES\n" + vie)
+        self.valeur_vague.set("VAGUE\n" + vague)
 
     # def test_projectile(self):
     #     print("test projectile")

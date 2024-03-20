@@ -14,11 +14,12 @@ class Modele:
         self.troncons = []
         self.creeps = []
         self.objets_animer = []
-        self.CREEP_PAR_NIVEAU = 20  # SWITCH BACK A 20
-        self.niveau = 0
+        self.CREEP_PAR_NIVEAU = 20
+        self.niveau = 0  # correspond à la vague
         self.COOLDOWN_VAGUE = 5
-        self.argent = 3
+        self.argent = 0
         self.ARGENT_PAR_NIVEAU = 100
+        self.vie = 20
         self.creepCreer = 0
         self.liste_tours = []
         self.stats_tours = {
@@ -29,12 +30,12 @@ class Modele:
                 "range_detection": 100,
                 "puissance": 2,
                 "ameliorations": {
-                    "2" : {
+                    "2": {
                         "cout": 50,
                         "cooldown": 5,
                         "puissance": 5
                     },
-                    "3" : {
+                    "3": {
                         "cout": 50,
                         "cooldown": 2,
                         "puissance": 7
@@ -168,12 +169,7 @@ class Modele:
 
     def cliquerTour(self, tour):
 
-
-
         print("tour cliquer?")
-
-
-
 
     def deplacer_objets(self):
         # deplace tous les objets du canvas n'ayant pas le tag static
@@ -185,31 +181,34 @@ class Modele:
     def creer_tour(self, posX: int, posY: int, type: str) -> tuple[int, Tour]:
         tour = Tour(self, posX, posY, type, self.stats_tours[type])
         self.liste_tours.append(tour)
+        self.argent -= self.stats_tours[type]["prix_base"]
         return len(self.liste_tours) - 1, tour
 
     def init_vague(self) -> None:
         self.niveau += 1
         self.argent += self.ARGENT_PAR_NIVEAU
+
         self.start = True
-        self.lancer_vague()
+        # self.lancer_vague()
 
     def compte_rebours(self, temps_sec: int) -> None:
-        while temps_sec > 0:
+        """while temps_sec > 0:
             print(f"Temps: {temps_sec}")
             sleep(temps_sec)
-            temps_sec -= 1
+            temps_sec -= 1"""
 
-    def mourir(self, creep):
+    def atteindre_chateau(self) -> None:
+        self.vie -= 1
+        self.controle.maj_vie()
+
+    def retirer_creep(self, creep):
         try:
             index = self.creeps.index(creep)
             indexObject = self.objets_animer.index(creep)
             del self.creeps[index]
             del self.objets_animer[indexObject]
-            print(self.argent)
         except ValueError:
             print("creep mort :D")
-
-
 
     def impact_projectile(self, projectile):
         self.objets_animer.remove(projectile)
@@ -248,9 +247,13 @@ class Modele:
         self.objets_animer.append(c)
         self.creepCreer += 1
 
+    def tuer_creep(self, creep : Creep):
+        self.argent += 20
+        self.controle.maj_argent()
+        self.retirer_creep(creep)
+
     def verifier_argent(self, type: str) -> bool:
         if self.argent >= self.stats_tours[type]["prix_base"]:
             return True
         else:
             return False
-

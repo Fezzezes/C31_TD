@@ -15,7 +15,7 @@ class Creep:
         self.cibleX, self.cibleY = self.trouver_cible()
         self.posY = 0
         self.posX = self.cibleX
-        self.vitesse = 6
+        self.vitesse = 20 # remettre a 6
         self.vie = 10
         self.poison=0
         self.acide=0
@@ -23,12 +23,15 @@ class Creep:
     def degat(self, degat):
         self.vie -= degat
         if self.vie <= 0:
-            self.parent.argent += 5
-            self.parent.mourir(self)
+            self.parent.tuer_creep(self)
 
     def trouver_cible(self):
         newCible = self.t.cibleX, self.t.cibleY
         return newCible
+
+    def atteindre_chateau(self):
+        self.parent.atteindre_chateau()
+        self.parent.retirer_creep(self)
 
     def deplacement(self):
         dirX = self.cibleX - self.posX
@@ -42,7 +45,7 @@ class Creep:
                 self.cibleX, self.cibleY = self.trouver_cible()
             except IndexError:
                 print("ARRIVER AU CHATEAU")
-                self.parent.mourir(self)
+                self.atteindre_chateau()
 
             exit
 
