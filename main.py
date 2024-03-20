@@ -43,6 +43,7 @@ class Controleur:
                 if self.modele.tempsPasse(self.modele.tempsDebut) > 5:
                     self.modele.ajouterCreep(self.compteur)
                     self.modele.detecter_creeps()
+                    self.modele.checkPoison()
                     self.vue.animer_jeu()
                     self.compteur += 1
                 self.vue.root.after(50, self.animer_jeu)

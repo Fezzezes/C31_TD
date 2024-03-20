@@ -20,7 +20,7 @@ class Modele:
         self.COOLDOWN_VAGUE = 5
         self.vie = 5
         self.argent = 0
-        self.ARGENT_PAR_NIVEAU = 200  # switch back a 100
+        self.ARGENT_PAR_NIVEAU = 200
 
         self.partie_active = True
         self.niveau_terminer = False
@@ -109,6 +109,13 @@ class Modele:
                 self.controle.updateTour(t)
             else:
                 print("MANQUE DE FONDS")
+
+    def checkPoison(self):
+        for c in self.creeps:
+            if c.poison > 0:
+                c.degat(1)
+                c.poison -= 1
+
 
     def creer_troncons(self):
         ub = self.unite_base  # x, y, largeur, hauteur, maxX,minX,maxY,minY):
@@ -269,7 +276,6 @@ class Modele:
             self.creepCreer += 1
             if self.creepCreer == self.CREEP_PAR_NIVEAU:
                 self.creep_creation_terminer = True
-
 
     def tuer_creep(self, creep: Creep):
         self.argent += 15
