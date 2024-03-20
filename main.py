@@ -6,8 +6,8 @@ from tkinter import *
 class Controleur:
     def __init__(self):
 
-        self.tempsDebut= time.time()
-        self.compteur=0
+        self.tempsDebut = time.time()
+        self.compteur = 0
         self.modele = Modele(self)
         self.vue = Vue(self, self.modele)
         self.tempcurrent = self.modele.tempsPasse(self.tempsDebut)
@@ -25,17 +25,23 @@ class Controleur:
     def ameliorerTour(self, t):
         self.modele.ameliorerTour(t)
 
+    def updateTour(self, t):
+        print("update vue")
+        self.vue.dessiner_tour(str(self.modele.liste_tours.index(t)), t)
+
+    def updatArgent(self, argent):
+        self.vue.updateArgent(argent)
+
     def ajouterCreep(self):
         if self.modele.creepBouge < self.modele.CREEP_PAR_NIVEAU:
             self.modele.ajouterCreep()
 
     def animer_jeu(self):
         if self.modele.tempsPasse(self.tempsDebut) > 5:
+            self.modele.ajouterCreep(self.compteur)
             self.modele.detecter_creeps()
             self.vue.animer_jeu()
             self.compteur += 1
-            if self.modele.creepCreer < self.modele.CREEP_PAR_NIVEAU and self.compteur % 20 == 1:  # change 20 pour ralenir ou accelerer
-                self.modele.ajouterCreep()
 
         self.vue.root.after(50, self.animer_jeu)
         print(self.modele.tempsPasse(self.tempsDebut))
@@ -52,7 +58,8 @@ class Controleur:
         self.vue.valeur_vie.set("VIES RESTANTES\n" + str(self.modele.vie))
 
     def maj_argent(self):
-        self.vue.valeur_vie.set("ARGENT\n" + str(self.modele.argent))
+        self.vue.valeur_argent.set("ARGENT\n" + str(self.modele.argent))
+
 
 if __name__ == "__main__":
     c = Controleur()

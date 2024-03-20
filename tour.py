@@ -23,6 +23,7 @@ class Tour:
         # print("COUT", self.ameliorations["2"]["cout"])
         self.cooldown_base = stats["cooldown_base"]
         self.cooldown = 0
+        self.puissance= stats["puissance"]
         self.detecte_un_creep = False
         # rajouter self.puissance
 
