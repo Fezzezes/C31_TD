@@ -153,7 +153,7 @@ class Vue:
                                 font=("Arial", 14), fg="white", bg="DarkOrchid4",
                                 padx=10, pady=5,
                                 wraplength=ub * 2,
-                                command=self.test_toggle_construction)
+                                command=self.toggle_construction)
         bouton_quitter.place(relx=0.9, rely=0.1, anchor="center", relheight=0.2,
                              relwidth=0.2)
 
@@ -198,11 +198,10 @@ class Vue:
 
         frame_ressource.place(x=960, y=5)
         label_vie = Label(frame_ressource, textvariable=self.valeur_vie,
-                            font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
+                          font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
 
         label_argent = Label(frame_ressource, textvariable=self.valeur_argent,
-                                font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5)
-
+                             font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5)
 
         label_vie.place(relx=0, rely=0, anchor="nw", relwidth=1.0, relheight=0.5)
         label_argent.place(relx=0, rely=0.75, anchor="nw", relwidth=1.0, relheight=0.25)
@@ -284,7 +283,6 @@ class Vue:
         self.dict_interfaces["c_jeu"].tag_bind(t, "<Button-1>", lambda t, test=tour: self.cliquerTour(t, test))
 
     def dessine_range(self, tour):
-
         x1 = tour.centreX + tour.range_detection
         y1 = tour.centreY + tour.range_detection
         x2 = tour.centreX - tour.range_detection
@@ -333,20 +331,16 @@ class Vue:
         print(tour)
         return [cout, desc, tour]
 
-
-    def test_toggle_construction(self):
-        print("showing construction")
+    def toggle_construction(self):
         self.toggle_interface("f_amelioration", "f_construction")
 
-    def test_toggle_amelioration(self):
-        print("showing amelioration")
+    def toggle_amelioration(self):
         self.toggle_interface("f_construction", "f_amelioration")
 
     def toggle_interface(self, remove, show):
         self.dict_interfaces[remove].place_forget()
-        self.dict_interfaces[show].place(x=6 * self.modele.unite_base, y=5)
+        self.dict_interfaces[show].place(x=10 * self.modele.unite_base, y=5)
         pass
-
 
     def update_menu_amelioration(self, tour):
         cle = tour.donner_cle_amelioration()
@@ -358,7 +352,7 @@ class Vue:
 
     def cliquerTour(self, event, t):  # toggle
         self.update_menu_amelioration(t)
-        self.toggle_interface("f_construction", "f_amelioration")
+        self.toggle_amelioration()
         # update la desc, le cout et le niveau de la tour
 
         self.tourCliquer = t
@@ -371,7 +365,6 @@ class Vue:
         self.valeur_argent.set("ARGENT\n" + argent)
         self.valeur_vie.set("VIES RESTANTES\n" + vie)
         self.valeur_vague.set("VAGUE\n" + vague)
-
 
     # def test_projectile(self):
     #     print("test projectile")
