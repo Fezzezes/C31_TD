@@ -10,7 +10,7 @@ class Controleur:
         self.compteur = 0
         self.modele = Modele(self)
         self.vue = Vue(self, self.modele)
-        self.tempcurrent = self.modele.tempsPasse(self.tempsDebut)
+
         self.initialise_partie()
         self.vue.root.mainloop()
 
