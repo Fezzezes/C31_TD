@@ -132,6 +132,15 @@ class Vue:
                            pady=5,
                            wraplength=ub * 2)
 
+        label_tour.place(relx=0.8, rely=0.5, anchor="center", relheight=0.5,
+                         relwidth=0.2)
+
+        bouton_quitter = Button(frame_amelioration, text=" X ",
+                               font=("Arial", 14), fg="white", bg="DarkOrchid4",
+                               padx=10, pady=5,
+                               wraplength=ub * 2,
+                               command=self.test_toggle_construction)
+
         bouton_upgrade.place(relx=0.5, rely=0.5, anchor="center",
                              relheight=0.5, relwidth=0.2)
         label_tour.place(relx=0.8, rely=0.5, anchor="center", relheight=0.5,
