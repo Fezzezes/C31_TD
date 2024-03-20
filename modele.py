@@ -11,6 +11,7 @@ class Modele:
     def __init__(self, controle):
         self.controle = controle
         self.unite_base = 40
+        self.vie = 20
         self.troncons = []
         self.creeps = []
         self.objets_animer = []
@@ -18,7 +19,7 @@ class Modele:
         self.niveau = 0
         self.COOLDOWN_VAGUE = 5
         self.argent = 3
-        self.ARGENT_PAR_NIVEAU = 100
+        self.ARGENT_PAR_NIVEAU = 100 #switch back a 100
         self.creepCreer = 0
         self.liste_tours = []
         self.stats_tours = {
@@ -29,12 +30,12 @@ class Modele:
                 "range_detection": 100,
                 "puissance": 2,
                 "ameliorations": {
-                    "2" : {
+                    2: {
                         "cout": 50,
                         "cooldown": 5,
                         "puissance": 5
                     },
-                    "3" : {
+                    3: {
                         "cout": 50,
                         "cooldown": 2,
                         "puissance": 7
@@ -48,12 +49,12 @@ class Modele:
                 "range_detection": 100,
                 "puissance": 2,
                 "ameliorations": {
-                    "2": {
+                    2: {
                         "cout": 50,
                         "cooldown": 5,
                         "puissance": 5
                     },
-                    "3": {
+                    3: {
                         "cout": 50,
                         "cooldown": 2,
                         "puissance": 7
@@ -67,12 +68,12 @@ class Modele:
                 "range_detection": 100,
                 "puissance": 2,
                 "ameliorations": {
-                    "2": {
+                    2: {
                         "cout": 50,
                         "cooldown": 5,
                         "puissance": 5
                     },
-                    "3": {
+                    3: {
                         "cout": 50,
                         "cooldown": 2,
                         "puissance": 7
@@ -80,6 +81,25 @@ class Modele:
                 }
             }
         }
+
+    def ameliorerTour(self, t):
+        # {'cout': 50, 'cooldown': 5, 'puissance': 5}
+        print(self.argent)
+        print(t.niveau)
+        next_level= t.niveau+1
+        if next_level<=3:
+            stats = t.ameliorations[next_level]
+            if stats['cout'] <= self.argent:
+                    # print(t.puissance) pas de puissance???
+                    t.cooldown_base = stats['cooldown']
+                    t.puissance = stats['puissance']
+                    self.argent -= stats['cout']
+                    t.couleur = 'salmon4'
+                    t.niveau += 1
+            else:
+                print("MANQUE DE FONDS")
+
+
 
     def creer_troncons(self):
         ub = self.unite_base  # x, y, largeur, hauteur, maxX,minX,maxY,minY):
@@ -166,15 +186,6 @@ class Modele:
                     16 * ub))
         pass
 
-    def cliquerTour(self, tour):
-
-
-
-        print("tour cliquer?")
-
-
-
-
     def deplacer_objets(self):
         # deplace tous les objets du canvas n'ayant pas le tag static
         for o in self.objets_animer:
@@ -208,8 +219,6 @@ class Modele:
             print(self.argent)
         except ValueError:
             print("creep mort :D")
-
-
 
     def impact_projectile(self, projectile):
         self.objets_animer.remove(projectile)
@@ -253,4 +262,3 @@ class Modele:
             return True
         else:
             return False
-

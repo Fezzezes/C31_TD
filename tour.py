@@ -14,7 +14,9 @@ class Tour:
         self.posX_2 = posX_1 + self.taille #posX_1 + self.calculer_diagonale()
         self.posY_2 = posY_1 + self.taille #posY_1 + self.calculer_diagonale()
         self.centreX = hp.calculer_point_median(self.posX_1, self.taille)
+
         self.centreY = hp.calculer_point_median(self.posY_1, self.taille)
+
         self.couleur = stats["couleur"]
         # self.rayon = self.calculer_rayon(self.range_detection)
         self.type = type
