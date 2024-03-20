@@ -5,10 +5,12 @@ from tkinter import *
 
 class Controleur:
     def __init__(self):
-        self.tempsMort = False
+
+        self.tempsDebut= time.time()
         self.compteur=0
         self.modele = Modele(self)
         self.vue = Vue(self, self.modele)
+        self.tempcurrent = self.modele.tempsPasse(self.tempsDebut)
         self.initialise_partie()
         self.vue.root.mainloop()
 
@@ -20,11 +22,6 @@ class Controleur:
         self.modele.lancer_vague()
         # self.vue.test_tour_et_projectile()
 
-    def waitingTime(self):
-        self.tempsMort = True
-        self.animer_jeu()
-        pass
-
     def ameliorerTour(self, t):
         self.modele.ameliorerTour(t)
 
@@ -33,16 +30,15 @@ class Controleur:
             self.modele.ajouterCreep()
 
     def animer_jeu(self):
-        if not self.tempsMort:
-            self.vue.root.after(5000, self.waitingTime)  # change a 4000
-
-        if self.tempsMort:
+        if self.modele.tempsPasse(self.tempsDebut) > 5:
             self.modele.detecter_creeps()
             self.vue.animer_jeu()
             self.compteur += 1
             if self.modele.creepCreer < self.modele.CREEP_PAR_NIVEAU and self.compteur % 20 == 1:  # change 20 pour ralenir ou accelerer
                 self.modele.ajouterCreep()
-            self.vue.root.after(50, self.animer_jeu)
+
+        self.vue.root.after(50, self.animer_jeu)
+        print(self.modele.tempsPasse(self.tempsDebut))
 
     def verifier_argent(self, type: str) -> bool:
         return self.modele.verifier_argent(type)

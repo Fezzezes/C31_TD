@@ -6,10 +6,9 @@ from helper import Helper as hp
 class Creep:
     def __init__(self, parent):
         self.parent = parent
-        self.isAlive = True
-        self.isWalking = False
         self.taille = self.parent.unite_base / 2
         self.currentT = 0
+        self.isAlive= True
         self.t = self.parent.troncons[self.currentT]
         self.couleur = "blue"
         self.cibleX, self.cibleY = self.trouver_cible()

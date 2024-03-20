@@ -194,6 +194,7 @@ class Vue:
         label_argent = Label(frame_ressource, textvariable=self.valeur_argent,
                                 font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5)
 
+
         label_vie.place(relx=0, rely=0, anchor="nw", relwidth=1.0, relheight=0.5)
         label_argent.place(relx=0, rely=0.75, anchor="nw", relwidth=1.0, relheight=0.25)
 
