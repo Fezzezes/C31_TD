@@ -20,7 +20,7 @@ class Modele:
         self.COOLDOWN_VAGUE = 5
         self.vie = 20
         self.argent = 0
-        self.ARGENT_PAR_NIVEAU = 250  # switch back a 100
+        self.ARGENT_PAR_NIVEAU = 200  # switch back a 100
 
         self.partie_active = True
         self.niveau_terminer = False
@@ -66,9 +66,9 @@ class Modele:
                     },
                     3: {
                         "cout": 50,
-                        "cooldown": 0,
-                        "puissance": 2,
-                        "couleur": "dark goldenrod"
+                        "cooldown":2,
+                        "couleur": "dark goldenrod",
+                        "puissance": 7
                     },
                 }
             },
@@ -96,14 +96,11 @@ class Modele:
         }
 
     def ameliorerTour(self, t):
-        # {'cout': 50, 'cooldown': 5, 'puissance': 5}
-        print(self.argent)
-        print(t.niveau)
         next_level = t.niveau + 1
         if next_level <= 3:
             stats = t.ameliorations[next_level]
             if stats['cout'] <= self.argent:
-                # print(t.puissance) pas de puissance???
+
                 t.cooldown_base = stats['cooldown']
                 t.puissance = stats['puissance']
                 self.argent -= stats['cout']
@@ -249,16 +246,6 @@ class Modele:
     def impact_projectile(self, projectile):
         self.objets_animer.remove(projectile)
 
-    def timer(self):
-        start = time.time()
-
-        while self.start:
-            currentTime = time.time()
-            if currentTime - start >= 5:
-                print("time's up")
-                self.start = False
-        pass
-
     def tempsPasse(self, timerStart):
         tempecoule = time.time() - timerStart
         return tempecoule
@@ -285,7 +272,7 @@ class Modele:
 
 
     def tuer_creep(self, creep: Creep):
-        self.argent += 20
+        self.argent += 15
         self.controle.maj_argent()
         self.retirer_creep(creep)
 

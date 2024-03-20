@@ -16,16 +16,13 @@ class Tour:
         self.centreX = hp.calculer_point_median(self.posX_1, self.taille)
         self.centreY = hp.calculer_point_median(self.posY_1, self.taille)
         self.couleur = stats["couleur"]
-        # self.rayon = self.calculer_rayon(self.range_detection)
         self.type = type
         self.niveau = 1
         self.ameliorations = stats["ameliorations"]
-        # print("COUT", self.ameliorations["2"]["cout"])
         self.cooldown_base = stats["cooldown_base"]
         self.cooldown = 0
         self.puissance= stats["puissance"]
         self.detecte_un_creep = False
-        # rajouter self.puissance
 
 
     def detecter_creep(self):
@@ -53,5 +50,4 @@ class Tour:
     # pour ameliorer: fonction qui concatène le type ET le niveau et qui retourne une string
     def donner_cle_amelioration(self):
         cle =self.type+str(self.niveau)
-        print(cle)
         return cle

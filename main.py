@@ -10,7 +10,7 @@ class Controleur:
         self.compteur = 0
         self.modele = Modele(self)
         self.vue = Vue(self, self.modele)
-        self.tempcurrent = self.modele.tempsPasse(self.tempsDebut)
+
         self.initialise_partie()
         self.vue.root.mainloop()
 
@@ -26,8 +26,9 @@ class Controleur:
         self.modele.ameliorerTour(t)
 
     def updateTour(self, t):
-        print("update vue")
         self.vue.dessiner_tour(str(self.modele.liste_tours.index(t)), t)
+        self.maj_argent()
+
 
     def updatArgent(self, argent):
         self.vue.updateArgent(argent)
@@ -44,7 +45,6 @@ class Controleur:
                     self.modele.detecter_creeps()
                     self.vue.animer_jeu()
                     self.compteur += 1
-
                 self.vue.root.after(50, self.animer_jeu)
             else:
 
@@ -52,6 +52,7 @@ class Controleur:
         else:
             self.vue.toggle_gameover()
             print(self.modele.tempsPasse(self.modele.tempsDebut))
+
 
     def verifier_argent(self, type: str) -> bool:
         return self.modele.verifier_argent(type)
