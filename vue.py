@@ -15,6 +15,7 @@ class Vue:
         self.valeur_argent = StringVar()
         self.valeur_vie = StringVar()
         self.valeur_vague = StringVar()
+        self.valeur_timer = StringVar()
         self.dict_amelioration = {"default": "***cout;***desc;****tour",
                                   "projectile1": "50;+Rapide\n+Power;Projectile 2",
                                   "projectile2": "50;+Rapide\n+Power;Projectile 3",
@@ -40,7 +41,6 @@ class Vue:
                                  bg="SpringGreen4")
         canvas_aire_jeu.pack()
         self.dict_interfaces.update({"c_jeu": canvas_aire_jeu})
-
 
     def creer_frame_menu(self):
         frame_menu = Frame(self.root, width=self.modele.unite_base * 32,
@@ -163,7 +163,7 @@ class Vue:
 
         frame_vague.place(x=40, y=5)
 
-        label_timer = Label(frame_vague, text="timer",
+        label_timer = Label(frame_vague, textvariable=self.valeur_timer,
                             font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5)
 
         label_num_vague = Label(frame_vague, textvariable=self.valeur_vague,
@@ -199,11 +199,11 @@ class Vue:
         pass
 
     def creer_frame_gameover(self):
-        frame_gameover= Frame(self.root, width=self.modele.unite_base * 32,
-                           height=self.modele.unite_base * 5, bg="light slate gray")
+        frame_gameover = Frame(self.root, width=self.modele.unite_base * 32,
+                               height=self.modele.unite_base * 5, bg="light slate gray")
 
         label_texte_fin = Label(frame_gameover, text="GAME OVER",
-                             font=("Arial", 40), fg="black", bg="light slate gray", padx=10, pady=5)
+                                font=("Arial", 40), fg="black", bg="light slate gray", padx=10, pady=5)
         label_texte_fin.place(relx=0, rely=0, anchor="nw", relwidth=1, relheight=1)
 
         self.dict_interfaces.update({"f_gameover": frame_gameover})
@@ -275,12 +275,11 @@ class Vue:
     def dessiner_tour(self, index: str, tour: Tour):
         tag = "id_" + index
 
-        t=self.dict_interfaces["c_jeu"].create_rectangle(tour.posX_1, tour.posY_1,
-                                                       tour.posX_2, tour.posY_2,
-                                                       fill=tour.couleur,
-                                                       tags=(tag, "permanent"), outline='')
-        self.dict_interfaces["c_jeu"].tag_bind(t,"<Button-1>", lambda t, test=tour : self.cliquerTour(t,test))
-
+        t = self.dict_interfaces["c_jeu"].create_rectangle(tour.posX_1, tour.posY_1,
+                                                           tour.posX_2, tour.posY_2,
+                                                           fill=tour.couleur,
+                                                           tags=(tag, "permanent"), outline='')
+        self.dict_interfaces["c_jeu"].tag_bind(t, "<Button-1>", lambda t, test=tour: self.cliquerTour(t, test))
 
     def dessine_range(self, tour):
         x1 = tour.centreX + tour.range_detection
@@ -369,10 +368,8 @@ class Vue:
         self.controle.ameliorerTour(self.tourCliquer)
         self.update_menu_amelioration(self.tourCliquer)
 
-
     def init_label(self, argent: str, vie: str, vague: str) -> None:
+        self.valeur_timer.set("TIMER\n" + "5")
         self.valeur_argent.set("ARGENT\n" + argent)
         self.valeur_vie.set("VIES RESTANTES\n" + vie)
         self.valeur_vague.set("VAGUE\n" + vague)
-
-

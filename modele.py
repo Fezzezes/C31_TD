@@ -223,13 +223,7 @@ class Modele:
         self.argent += self.ARGENT_PAR_NIVEAU
         self.tempsDebut = time.time()
         self.tempsPasse(self.tempsDebut)
-        # self.lancer_vague()
 
-    def compte_rebours(self, temps_sec: int) -> None:
-        """while temps_sec > 0:
-            print(f"Temps: {temps_sec}")
-            sleep(temps_sec)
-            temps_sec -= 1"""
 
     def atteindre_chateau(self) -> None:
         if self.vie - 1 > 0:

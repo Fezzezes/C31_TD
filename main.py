@@ -29,7 +29,6 @@ class Controleur:
         self.vue.dessiner_tour(str(self.modele.liste_tours.index(t)), t)
         self.maj_argent()
 
-
     def updatArgent(self, argent):
         self.vue.updateArgent(argent)
 
@@ -40,12 +39,17 @@ class Controleur:
     def animer_jeu(self):
         if self.modele.partie_active:
             if not self.modele.niveau_terminer:
+                time = round(self.modele.tempsPasse(self.modele.tempsDebut), 0)
+                if 0 < time <= 5:
+                    self.maj_timer(5-time)
                 if self.modele.tempsPasse(self.modele.tempsDebut) > 5:
                     self.modele.ajouterCreep(self.compteur)
                     self.modele.detecter_creeps()
                     self.modele.checkPoison()
                     self.vue.animer_jeu()
                     self.compteur += 1
+                    print(self.compteur)
+
                 self.vue.root.after(50, self.animer_jeu)
             else:
 
@@ -53,7 +57,6 @@ class Controleur:
         else:
             self.vue.toggle_gameover()
             print(self.modele.tempsPasse(self.modele.tempsDebut))
-
 
     def verifier_argent(self, type: str) -> bool:
         return self.modele.verifier_argent(type)
@@ -69,6 +72,9 @@ class Controleur:
     def maj_argent(self):
         self.vue.valeur_argent.set("ARGENT\n" + str(self.modele.argent))
 
+    def maj_timer(self, time):
+        self.vue.valeur_timer.set("TIMER\n" + str(time))
+
     def prochain_niveau(self):
         self.modele.init_vague()
         self.vue.init_label(str(self.modele.argent), str(self.modele.vie), str(self.modele.niveau))
@@ -76,8 +82,6 @@ class Controleur:
         self.modele.lancer_vague()
         pass
 
-    def finir_partie(self):
-        pass
 
 if __name__ == "__main__":
     c = Controleur()
