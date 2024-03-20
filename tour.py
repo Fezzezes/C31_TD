@@ -50,3 +50,7 @@ class Tour:
             self.cooldown -= 1
 
     # pour ameliorer: fonction qui concatène le type ET le niveau et qui retourne une string
+    def donner_cle_amelioration(self):
+        cle =self.type+str(self.niveau)
+        print(cle)
+        return cle
