@@ -26,6 +26,9 @@ class Controleur:
         self.animer_jeu()
         pass
 
+    def ameliorerTour(self, t):
+        self.modele.ameliorerTour(t)
+
     def ajouterCreep(self):
         if self.modele.creepBouge < self.modele.CREEP_PAR_NIVEAU:
             self.modele.ajouterCreep()
@@ -40,8 +43,6 @@ class Controleur:
             self.compteur += 1
             if self.modele.creepCreer < self.modele.CREEP_PAR_NIVEAU and self.compteur % 20 == 1:  # change 20 pour ralenir ou accelerer
                 self.modele.ajouterCreep()
-
-            print(self.modele.argent)
             self.vue.root.after(50, self.animer_jeu)
 
     def verifier_argent(self, type: str) -> bool:

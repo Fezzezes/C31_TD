@@ -15,6 +15,7 @@ class Vue:
         ##creation  des interfaces graphiques
         self.dict_interfaces = {}
         self.creer_interfaces()
+        self.tourCliquer= None
 
     def creer_interfaces(self):
         self.creer_frame_aire_jeu()
@@ -29,18 +30,19 @@ class Vue:
         canvas_aire_jeu.pack()
         self.dict_interfaces.update({"c_jeu": canvas_aire_jeu})
 
-        bouton_construction = Button(canvas_aire_jeu, text="construction",
-                                     font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5,
-                                     command=self.test_toggle_construction)
+        # bouton_construction = Button(canvas_aire_jeu, text="construction",
+        #                              font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5,
+        #                              command=self.test_toggle_construction)
+        #
+        # bouton_amelioration = Button(canvas_aire_jeu, text="amelioration",
+        #                              font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5,
+        #                              command=self.test_toggle_amelioration)
 
-        bouton_amelioration = Button(canvas_aire_jeu, text="amelioration",
-                                     font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5,
-                                     command=self.test_toggle_amelioration)
 
-        bouton_construction.place(relx=0.6, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
-        bouton_amelioration.place(relx=0.8, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
-        self.dict_interfaces.update({"b_construction": bouton_construction})
-        self.dict_interfaces.update({"b_amelioration": bouton_amelioration})
+        # bouton_construction.place(relx=0.6, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
+        # bouton_amelioration.place(relx=0.8, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
+        # self.dict_interfaces.update({"b_construction": bouton_construction})
+        # self.dict_interfaces.update({"b_amelioration": bouton_amelioration})
 
     def creer_frame_menu(self):
         frame_menu = Frame(self.root, width=self.modele.unite_base * 32,
@@ -126,7 +128,7 @@ class Vue:
                          relwidth=1)
 
         bouton_upgrade = Button(frame_amelioration, text="Upgrade",
-                                wraplength=ub * 2, command=self.cliquerTour)
+                                wraplength=ub * 2, command=self.ameliorerTour)
         label_tour = Label(frame_amelioration, text=tour,
                            font=("Arial", 14), fg="blue", bg="gray", padx=10,
                            pady=5,
@@ -252,10 +254,11 @@ class Vue:
 
     def dessiner_tour(self, index: str, tour: Tour):
         tag = "id_" + index
-        self.dict_interfaces["c_jeu"].create_rectangle(tour.posX_1, tour.posY_1,
+        t=self.dict_interfaces["c_jeu"].create_rectangle(tour.posX_1, tour.posY_1,
                                                        tour.posX_2, tour.posY_2,
                                                        fill="pink",
                                                        tags=(tag, "permanent"), outline='')
+        self.dict_interfaces["c_jeu"].tag_bind(t,"<Button-1>", lambda t, test=tour : self.cliquerTour(t,test))
 
     def dessine_range(self, tour):
 
@@ -275,17 +278,6 @@ class Vue:
             self.dict_interfaces["c_jeu"].bind("<Button-1>",
                                                lambda event, t=type: self.desactiver_tour_temporaire(event, t))
 
-    def cliquerTour(self):
-        self.dict_interfaces["c_jeu"].bind("<Button-1>",
-                                           lambda event: self.ameliorerTour(event))
-
-    def ameliorerTour(self, event):
-        x, y = event.x, event.y
-        for t in self.modele.liste_tours:
-            if t.posX_1 < x < t.posX_2 and t.posY_1 < y < t.posY_2:
-                print("TOUR CLIQUER", t)
-                self.modele.ameliorerTour(t)
-        self.dict_interfaces["c_jeu"].unbind("<Button-1>")
 
     def desactiver_tour_temporaire(self, evt, type: str) -> None:
         self.dict_interfaces["c_jeu"].unbind("<Motion>")
@@ -333,6 +325,13 @@ class Vue:
         self.dict_interfaces[remove].place_forget()
         self.dict_interfaces[show].place(x=6 * self.modele.unite_base, y=5)
         pass
+
+    def cliquerTour(self, event,t):  # toggle
+        self.toggle_interface("f_construction", "f_amelioration")
+        self.tourCliquer = t
+
+    def ameliorerTour(self):  # upgrapde_btn
+        self.controle.ameliorerTour(self.tourCliquer)
 
     # def test_projectile(self):
     #     print("test projectile")

@@ -19,7 +19,7 @@ class Modele:
         self.niveau = 0
         self.COOLDOWN_VAGUE = 5
         self.argent = 3
-        self.ARGENT_PAR_NIVEAU = 300 #switch back a 100
+        self.ARGENT_PAR_NIVEAU = 100 #switch back a 100
         self.creepCreer = 0
         self.liste_tours = []
         self.stats_tours = {
@@ -85,19 +85,21 @@ class Modele:
     def ameliorerTour(self, t):
         # {'cout': 50, 'cooldown': 5, 'puissance': 5}
         print(self.argent)
-        stats = t.ameliorations[t.niveau + 1]
-        if stats['cout'] <= self.argent:
-            if t.niveau<3:
-                # print(t.puissance) pas de puissance???
-                t.cooldown_base = stats['cooldown']
-                t.puissance = stats['puissance']
-                self.argent -= stats['cout']
-                t.couleur = 'salmon4'
-                t.niveau += 1
-            print("MAX AMELIROATION")
-        else:
-            print("MANQUE DE FONDS")
-        print(self.argent)
+        print(t.niveau)
+        next_level= t.niveau+1
+        if next_level<=3:
+            stats = t.ameliorations[next_level]
+            if stats['cout'] <= self.argent:
+                    # print(t.puissance) pas de puissance???
+                    t.cooldown_base = stats['cooldown']
+                    t.puissance = stats['puissance']
+                    self.argent -= stats['cout']
+                    t.couleur = 'salmon4'
+                    t.niveau += 1
+            else:
+                print("MANQUE DE FONDS")
+
+
 
     def creer_troncons(self):
         ub = self.unite_base  # x, y, largeur, hauteur, maxX,minX,maxY,minY):
