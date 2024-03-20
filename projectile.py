@@ -64,20 +64,14 @@ class Projectile:
 
     def impact(self):
         distance= hp.calcDistance(self.cibleX,self.cibleY, self.creep_cible.posX,self.creep_cible.posY)
-        print("distance enrte impact et creep", distance)
 
-        print(self.rayonImpact)
-        print(self.parent.puissance)
         if distance <= self.rayonImpact:
-            print(self.rayonImpact)
-       #     print("distance enrte impact et creep",distance)
             if self.type == "poison":
                 self.creep_cible.poison += self.parent.puissance#variable de projectile
 
             else:
                 self.creep_cible.degat(self.parent.puissance)  #variable de projectile
 
-        # self.parent.parent.impact_projectile(self)
-        # self.parent.modele.projectiles.remove(self)
+
 
 

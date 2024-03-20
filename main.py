@@ -26,8 +26,9 @@ class Controleur:
         self.modele.ameliorerTour(t)
 
     def updateTour(self, t):
-        print("update vue")
         self.vue.dessiner_tour(str(self.modele.liste_tours.index(t)), t)
+        self.maj_argent()
+
 
     def updatArgent(self, argent):
         self.vue.updateArgent(argent)
@@ -44,7 +45,6 @@ class Controleur:
             self.compteur += 1
 
         self.vue.root.after(50, self.animer_jeu)
-        print(self.modele.tempsPasse(self.tempsDebut))
 
     def verifier_argent(self, type: str) -> bool:
         return self.modele.verifier_argent(type)

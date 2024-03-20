@@ -14,8 +14,8 @@ class Creep:
         self.cibleX, self.cibleY = self.trouver_cible()
         self.posY = 0
         self.posX = self.cibleX
-        self.vitesse = 5
-        self.vie = 10
+        self.vitesse = 7
+        self.vie = 15
         self.poison = 0
         self.acide = 0
 

@@ -38,23 +38,9 @@ class Vue:
         canvas_aire_jeu = Canvas(self.root, width=self.modele.unite_base * 32,
                                  height=self.modele.unite_base * 19,
                                  bg="SpringGreen4")
-
-        # frame_aire_jeu.bind("<Button>", self.test_tags)
         canvas_aire_jeu.pack()
         self.dict_interfaces.update({"c_jeu": canvas_aire_jeu})
 
-        # bouton_test_toggle1 = Button(canvas_aire_jeu, text="show menu",
-        #                              font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5,
-        #                              command=self.toggle_menu)
-        #
-        # bouton_test_toggle2 = Button(canvas_aire_jeu, text="show gameover",
-        #                              font=("Arial", 14), fg="blue", bg="lightgray", padx=10, pady=5,
-        #                              command=self.toggle_gameover)
-        #
-        # bouton_test_toggle1.place(relx=0.6, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
-        # bouton_test_toggle2.place(relx=0.8, rely=0.1, anchor="center", relheight=0.1, relwidth=0.1)
-        # self.dict_interfaces.update({"b_construction": bouton_test_toggle1})
-        # self.dict_interfaces.update({"b_amelioration": bouton_test_toggle2})
 
     def creer_frame_menu(self):
         frame_menu = Frame(self.root, width=self.modele.unite_base * 32,
@@ -287,7 +273,6 @@ class Vue:
         pass
 
     def dessiner_tour(self, index: str, tour: Tour):
-        print("update")
         tag = "id_" + index
 
         t=self.dict_interfaces["c_jeu"].create_rectangle(tour.posX_1, tour.posY_1,
@@ -341,9 +326,6 @@ class Vue:
         cout = str_am.split(";", 2)[0]
         desc = str_am.split(";", 2)[1]
         tour = str_am.split(";", 2)[2]
-        print(cout)
-        print(desc)
-        print(tour)
         return [cout, desc, tour]
 
     def toggle_construction(self):
@@ -393,28 +375,4 @@ class Vue:
         self.valeur_vie.set("VIES RESTANTES\n" + vie)
         self.valeur_vague.set("VAGUE\n" + vague)
 
-    def updateArgent(self,argent):
-        self.dict_interfaces["f_argent"].config(text=str(argent))
 
-    # def test_projectile(self):
-    #     print("test projectile")
-    #     jeu = self.dict_interfaces["c_jeu"]
-    #
-    #     bouton_projectile = Button(jeu, text="pew pew", font=("Arial", 14), fg="blue", bg="gray", padx=10, pady=5,
-    #                                wraplength=self.modele.unite_base * 2, command=self.creer_projectile)
-    #
-    #     bouton_projectile.place(relx=0.1, rely=0.8, anchor="center", relheight=0.1, relwidth=0.1)
-
-    # def test_tour_et_projectile(self):
-    #     self.test_tour_detection()
-    #     # self.test_projectile()
-    #     pass
-
-    # def creer_projectile(self):
-    #     print(self.modele.creeps)
-    #     creep = self.modele.creeps[0]
-    #     proc = Projectile(0, 0, creep)
-    #     print(proc)
-    #     self.modele.objets_animer.append(proc)
-    #     # self.modele.objets_animer(proc)
-    #     pass
